@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 declare global {
-  type Settings = { bodyStyle: string };
+  type Settings = { bodyStyle: 'square' | 'notch' | 'fastback' };
 }
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
@@ -17,7 +17,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           name="body-style"
           id="square"
           checked={settings.bodyStyle === 'square'}
-          onClick={(e) => handleSettings(e.target.id)}
+          onChange={(e) => handleSettings(e.target.id)}
         />
         <label htmlFor="square">Squareback</label>
         <input
@@ -25,7 +25,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           name="body-style"
           id="fastback"
           checked={settings.bodyStyle === 'fastback'}
-          onClick={(e) => handleSettings(e.target.id)}
+          onChange={(e) => handleSettings(e.target.id)}
         />
         <label htmlFor="fastback">Fastback</label>
       </fieldset>
