@@ -19,10 +19,8 @@ import Controls from './Controls.tsx';
 const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({ bodyStyle: 'square' });
 
-  const handleSettings = (value: string) => {
-    console.log(value);
+  const handleSettings = (value: string) =>
     setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
-  };
 
   return (
     <>
@@ -38,7 +36,12 @@ const App: React.FC = () => {
             polar={[-0.1, Math.PI / 4]}
           >
             <Stage>
-              <Car position={[0, 0, 0]} scale={1} rotation-y={-Math.PI / 4} />
+              <Car
+                settings={settings}
+                position={[0, 0, 0]}
+                scale={1}
+                rotation-y={-Math.PI / 4}
+              />
             </Stage>
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.72, 0]}>
               <planeGeometry args={[170, 170]} />
