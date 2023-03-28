@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type Settings = { bodyStyle: string };
+declare global {
+  type Settings = { bodyStyle: string };
+}
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,

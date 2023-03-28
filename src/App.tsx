@@ -17,7 +17,7 @@ import Car from './Car.tsx';
 import Controls from './Controls.tsx';
 
 const App: React.FC = () => {
-  const [settings, setSettings] = useState({ bodyStyle: 'square' });
+  const [settings, setSettings] = useState<Settings>({ bodyStyle: 'square' });
 
   const handleSettings = (value: string) => {
     console.log(value);
