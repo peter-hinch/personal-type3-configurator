@@ -5,6 +5,7 @@ const Car: React.FC<{ settings: Settings; props: any }> = ({
   settings,
   props
 }) => {
+  // @ts-ignore
   const { scene, nodes, materials } = useGLTF('/volkswagen-type3.glb');
 
   useLayoutEffect(() => {
