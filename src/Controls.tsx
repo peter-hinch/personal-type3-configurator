@@ -3,12 +3,16 @@ import styled from 'styled-components';
 
 declare global {
   type Settings = {
-    bodyStyle: 'squareback' | 'notch' | 'fastback';
+    bodyStyle: 'squareback' | 'notchback' | 'fastback';
     paintColour: 'paint';
   };
 }
 
-const bodyStyles: Settings['bodyStyle'][] = ['squareback', 'notch', 'fastback'];
+const bodyStyles: Settings['bodyStyle'][] = [
+  'squareback',
+  'notchback',
+  'fastback'
+];
 const paintColours: Settings['paintColour'][] = ['paint'];
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
@@ -18,26 +22,18 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   return (
     <StyledControls>
       <fieldset>
-        <div className="option">
-          <input
-            type="radio"
-            name="body-style"
-            id="squareback"
-            checked={settings.bodyStyle === 'squareback'}
-            onChange={(e) => handleSettings(e.target.id)}
-          />
-          <label htmlFor="squareback">Squareback</label>
-        </div>
-        <div className="option">
-          <input
-            type="radio"
-            name="body-style"
-            id="fastback"
-            checked={settings.bodyStyle === 'fastback'}
-            onChange={(e) => handleSettings(e.target.id)}
-          />
-          <label htmlFor="fastback">Fastback</label>
-        </div>
+        {bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
+          <div className="option">
+            <input
+              type="radio"
+              name="body-style"
+              id={bodyStyle}
+              checked={settings.bodyStyle === bodyStyle}
+              onChange={(e) => handleSettings(e.target.id)}
+            />
+            <label htmlFor={bodyStyle}>{bodyStyle}</label>
+          </div>
+        ))}
       </fieldset>
     </StyledControls>
   );
