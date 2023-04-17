@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-const BodyStyleSquareParts: React.FC<{
+const BodyStyleSquarebackParts: React.FC<{
   nodes;
   materials;
   settings: Settings;
@@ -22,4 +22,4 @@ const BodyStyleSquareParts: React.FC<{
   );
 };
 
-export default BodyStyleSquareParts;
+export default BodyStyleSquarebackParts;
