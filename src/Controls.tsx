@@ -12,22 +12,26 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   return (
     <StyledControls>
       <fieldset>
-        <input
-          type="radio"
-          name="body-style"
-          id="square"
-          checked={settings.bodyStyle === 'square'}
-          onChange={(e) => handleSettings(e.target.id)}
-        />
-        <label htmlFor="square">Squareback</label>
-        <input
-          type="radio"
-          name="body-style"
-          id="fastback"
-          checked={settings.bodyStyle === 'fastback'}
-          onChange={(e) => handleSettings(e.target.id)}
-        />
-        <label htmlFor="fastback">Fastback</label>
+        <div className="option">
+          <input
+            type="radio"
+            name="body-style"
+            id="square"
+            checked={settings.bodyStyle === 'square'}
+            onChange={(e) => handleSettings(e.target.id)}
+          />
+          <label htmlFor="square">Squareback</label>
+        </div>
+        <div className="option">
+          <input
+            type="radio"
+            name="body-style"
+            id="fastback"
+            checked={settings.bodyStyle === 'fastback'}
+            onChange={(e) => handleSettings(e.target.id)}
+          />
+          <label htmlFor="fastback">Fastback</label>
+        </div>
       </fieldset>
     </StyledControls>
   );
@@ -35,13 +39,25 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
 
 const StyledControls = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0.3rem;
+  left: 0.3rem;
   z-index: 100;
 
   fieldset {
-    border: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
     background: white;
+    border: none;
+    border-radius: 0.5rem;
+
+    .option {
+      margin-bottom: 0.3rem;
+
+      input {
+        margin-left: 0;
+      }
+    }
   }
 `;
 
