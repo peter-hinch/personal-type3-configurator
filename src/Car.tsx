@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 
 import CommonParts from './meshes/CommonParts.tsx';
-import BodyStyleSquareParts from './meshes/BodyStyleSquareParts.tsx';
+import BodyStyleSquarebackParts from './meshes/BodyStyleSquarebackParts.tsx';
 import BodyStyleFastbackParts from './meshes/BodyStyleFastbackParts.tsx';
 
 const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
@@ -20,7 +20,7 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
     <>
       <CommonParts nodes={nodes} materials={materials} settings={settings} />
       {settings.bodyStyle === 'squareback' && (
-        <BodyStyleSquareParts
+        <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
           settings={settings}
