@@ -19,7 +19,7 @@ import Controls from './Controls.tsx';
 const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({ bodyStyle: 'square' });
 
-  const handleSettings = (value: string) =>
+  const handleSettings = (value: Settings['bodyStyle']) =>
     setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
 
   return (
