@@ -2,8 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 declare global {
-  type Settings = { bodyStyle: 'square' | 'notch' | 'fastback' };
+  type Settings = {
+    bodyStyle: 'squareback' | 'notch' | 'fastback';
+    paintColour: 'paint';
+  };
 }
+
+const bodyStyles: Settings['bodyStyle'][] = ['squareback', 'notch', 'fastback'];
+const paintColours: Settings['paintColour'][] = ['paint'];
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,
@@ -16,11 +22,11 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           <input
             type="radio"
             name="body-style"
-            id="square"
-            checked={settings.bodyStyle === 'square'}
+            id="squareback"
+            checked={settings.bodyStyle === 'squareback'}
             onChange={(e) => handleSettings(e.target.id)}
           />
-          <label htmlFor="square">Squareback</label>
+          <label htmlFor="squareback">Squareback</label>
         </div>
         <div className="option">
           <input

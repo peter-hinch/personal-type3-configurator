@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 
-const BodyStyleSquareParts: React.FC<{ nodes; materials }> = ({
-  nodes,
-  materials
-}) => {
+const BodyStyleSquareParts: React.FC<{
+  nodes;
+  materials;
+  settings: Settings;
+}> = ({ nodes, materials, settings }) => {
   const bodyStyleSquareParts = useRef();
 
   return (

@@ -18,12 +18,20 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
 
   return (
     <>
-      <CommonParts nodes={nodes} materials={materials} />
-      {settings.bodyStyle === 'square' && (
-        <BodyStyleSquareParts nodes={nodes} materials={materials} />
+      <CommonParts nodes={nodes} materials={materials} settings={settings} />
+      {settings.bodyStyle === 'squareback' && (
+        <BodyStyleSquareParts
+          nodes={nodes}
+          materials={materials}
+          settings={settings}
+        />
       )}
       {settings.bodyStyle === 'fastback' && (
-        <BodyStyleFastbackParts nodes={nodes} materials={materials} />
+        <BodyStyleFastbackParts
+          nodes={nodes}
+          materials={materials}
+          settings={settings}
+        />
       )}
     </>
   );

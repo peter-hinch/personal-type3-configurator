@@ -1,6 +1,10 @@
 import React, { useRef } from 'react';
 
-const CommonParts: React.FC<{ nodes; materials }> = ({ nodes, materials }) => {
+const CommonParts: React.FC<{ nodes; materials; settings: Settings }> = ({
+  nodes,
+  materials,
+  settings
+}) => {
   const commonParts = useRef();
 
   return (
