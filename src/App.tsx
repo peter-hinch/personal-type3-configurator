@@ -14,7 +14,7 @@ import {
 // @ts-ignore
 import Car from './Car.tsx';
 // @ts-ignore
-import Controls from './Controls.tsx';
+import Controls from './ui/Controls.tsx';
 
 const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({
