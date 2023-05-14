@@ -11,11 +11,11 @@ const BodyStyleFastbackParts: React.FC<{
     <group ref={bodyStyleFastbackParts} dispose={null}>
       <mesh
         geometry={nodes.rear_windows_fastback.geometry}
-        material={materials.paint}
+        material={materials.pearl_white}
       />
       <mesh
         geometry={nodes.roof_skin_fastback.geometry}
-        material={materials.paint}
+        material={materials.pearl_white}
       />
     </group>
   );

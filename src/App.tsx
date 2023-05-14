@@ -15,10 +15,13 @@ import {
 import Car from './Car.tsx';
 // @ts-ignore
 import Controls from './ui/Controls.tsx';
+// @ts-ignore
+import PopUp from './ui/PopUp.tsx';
 
 const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({
-    bodyStyle: 'squareback'
+    bodyStyle: 'squareback',
+    paintColour: 'pearl_white'
   });
 
   const handleSettings = (value: Settings['bodyStyle']) =>
@@ -27,6 +30,7 @@ const App: React.FC = () => {
   return (
     <>
       <Controls settings={settings} handleSettings={handleSettings} />
+      <PopUp isVisible={true} message={'open ze door'} />
       <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }}>
         <color attach="background" args={['#101010']} />
         <fog attach="fog" args={['#101010', 10, 20]} />

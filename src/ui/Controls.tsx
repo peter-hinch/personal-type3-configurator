@@ -4,7 +4,7 @@ import styled from 'styled-components';
 declare global {
   type Settings = {
     bodyStyle: 'squareback' | 'notchback' | 'fastback';
-    paintColour: 'paint';
+    paintColour: 'pearl_white';
   };
 }
 
@@ -13,7 +13,20 @@ const bodyStyles: Settings['bodyStyle'][] = [
   'notchback',
   'fastback'
 ];
-const paintColours: Settings['paintColour'][] = ['paint'];
+const paintColours: Settings['paintColour'][] = ['pearl_white'];
+
+// This method converts setting labels from the naming_convention used within
+// GLTF models to Title Case.
+const convertCase = (input: string) => {
+  const words: string[] = input.split('_');
+  const converted = words.map((word, index) => {
+    const initial = word.charAt(0).toUpperCase();
+    return `
+      ${initial}${word.substring(1)}${index === word.length ? '' : ' '}
+    `;
+  });
+  return converted;
+};
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,
@@ -22,6 +35,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   return (
     <StyledControls>
       <fieldset>
+        <h4>Body Style</h4>
         {bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
           <div className="option">
             <input
@@ -31,7 +45,22 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
               checked={settings.bodyStyle === bodyStyle}
               onChange={(e) => handleSettings(e.target.id)}
             />
-            <label htmlFor={bodyStyle}>{bodyStyle}</label>
+            <label htmlFor={bodyStyle}>{convertCase(bodyStyle)}</label>
+          </div>
+        ))}
+      </fieldset>
+      <fieldset>
+        <h4>Paint Colour</h4>
+        {paintColours.map((paintColour: Settings['paintColour']) => (
+          <div className="option">
+            <input
+              type="radio"
+              name="pearl_white-colour"
+              id={paintColour}
+              checked={settings.paintColour === paintColour}
+              onChange={(e) => handleSettings(e.target.id)}
+            />
+            <label htmlFor={paintColour}>{convertCase(paintColour)}</label>
           </div>
         ))}
       </fieldset>
@@ -49,6 +78,7 @@ const StyledControls = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0.5rem 1rem;
+    margin: 0 0 0.5rem;
     background: white;
     border: none;
     border-radius: 0.5rem;

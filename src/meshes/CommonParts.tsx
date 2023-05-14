@@ -10,11 +10,11 @@ const CommonParts: React.FC<{
 
   return (
     <group ref={commonParts} dispose={null}>
-      <mesh geometry={nodes.bonnet.geometry} material={materials.paint} />
+      <mesh geometry={nodes.bonnet.geometry} material={materials.pearl_white} />
       <mesh geometry={nodes.chassis.geometry} material={materials.chassis} />
       <mesh
         geometry={nodes.door_left.geometry}
-        material={materials.paint}
+        material={materials.pearl_white}
         onPointerEnter={(event) => {
           handleInteraction(event, 'mouse entering left door');
         }}
@@ -24,7 +24,7 @@ const CommonParts: React.FC<{
       />
       <mesh
         geometry={nodes.door_right.geometry}
-        material={materials.paint}
+        material={materials.pearl_white}
         onPointerEnter={(event) => {
           handleInteraction(event, 'mouse entering right door');
         }}
@@ -32,8 +32,14 @@ const CommonParts: React.FC<{
           handleInteraction(event, 'mouse leaving right door');
         }}
       />
-      <mesh geometry={nodes.front_fascia.geometry} material={materials.paint} />
-      <mesh geometry={nodes.front_wing.geometry} material={materials.paint} />
+      <mesh
+        geometry={nodes.front_fascia.geometry}
+        material={materials.pearl_white}
+      />
+      <mesh
+        geometry={nodes.front_wing.geometry}
+        material={materials.pearl_white}
+      />
       <mesh
         geometry={nodes.headlight_lens.geometry}
         material={materials.glass}
@@ -44,10 +50,16 @@ const CommonParts: React.FC<{
       />
       <mesh
         geometry={nodes.heater_channel.geometry}
-        material={materials.paint}
+        material={materials.pearl_white}
       />
-      <mesh geometry={nodes.rear_fascia.geometry} material={materials.paint} />
-      <mesh geometry={nodes.rear_wing.geometry} material={materials.paint} />
+      <mesh
+        geometry={nodes.rear_fascia.geometry}
+        material={materials.pearl_white}
+      />
+      <mesh
+        geometry={nodes.rear_wing.geometry}
+        material={materials.pearl_white}
+      />
       <mesh
         geometry={nodes.taillight_lens.geometry}
         material={materials.light_lens_red}
