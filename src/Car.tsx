@@ -16,9 +16,18 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
     );
   }, [scene, nodes, materials]);
 
+  const handleInteraction = (event, cta: string) => {
+    console.log(cta);
+  };
+
   return (
     <>
-      <CommonParts nodes={nodes} materials={materials} settings={settings} />
+      <CommonParts
+        nodes={nodes}
+        materials={materials}
+        settings={settings}
+        handleInteraction={handleInteraction}
+      />
       {settings.bodyStyle === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}

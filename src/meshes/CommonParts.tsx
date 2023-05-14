@@ -1,17 +1,37 @@
 import React, { useRef } from 'react';
 
-const CommonParts: React.FC<{ nodes; materials; settings: Settings }> = ({
-  nodes,
-  materials,
-  settings
-}) => {
+const CommonParts: React.FC<{
+  nodes;
+  materials;
+  settings: Settings;
+  handleInteraction: Function;
+}> = ({ nodes, materials, settings, handleInteraction }) => {
   const commonParts = useRef();
 
   return (
     <group ref={commonParts} dispose={null}>
       <mesh geometry={nodes.bonnet.geometry} material={materials.paint} />
       <mesh geometry={nodes.chassis.geometry} material={materials.chassis} />
-      <mesh geometry={nodes.door_left.geometry} material={materials.paint} />
+      <mesh
+        geometry={nodes.door_left.geometry}
+        material={materials.paint}
+        onPointerEnter={(event) => {
+          handleInteraction(event, 'mouse entering left door');
+        }}
+        onPointerLeave={(event) => {
+          handleInteraction(event, 'mouse leaving left door');
+        }}
+      />
+      <mesh
+        geometry={nodes.door_right.geometry}
+        material={materials.paint}
+        onPointerEnter={(event) => {
+          handleInteraction(event, 'mouse entering right door');
+        }}
+        onPointerLeave={(event) => {
+          handleInteraction(event, 'mouse leaving right door');
+        }}
+      />
       <mesh geometry={nodes.front_fascia.geometry} material={materials.paint} />
       <mesh geometry={nodes.front_wing.geometry} material={materials.paint} />
       <mesh
@@ -36,6 +56,8 @@ const CommonParts: React.FC<{ nodes; materials; settings: Settings }> = ({
         geometry={nodes.taillight_reflector.geometry}
         material={materials.chrome}
       />
+      <mesh geometry={nodes.tyre.geometry} material={materials.chassis} />
+      <mesh geometry={nodes.windscreen.geometry} material={materials.glass} />
     </group>
   );
 };
