@@ -4,7 +4,13 @@ import styled from 'styled-components';
 declare global {
   type Settings = {
     bodyStyle: 'squareback' | 'notchback' | 'fastback';
-    paintColour: 'pearl_white';
+    paintColour:
+      | 'pearl_white'
+      | 'vw_blue'
+      | 'granada_red'
+      | 'delta_green'
+      | 'sea_sand'
+      | 'baltic_blue';
   };
 }
 
@@ -13,7 +19,14 @@ const bodyStyles: Settings['bodyStyle'][] = [
   'notchback',
   'fastback'
 ];
-const paintColours: Settings['paintColour'][] = ['pearl_white'];
+const paintColours: Settings['paintColour'][] = [
+  'pearl_white',
+  'vw_blue',
+  'granada_red',
+  'delta_green',
+  'sea_sand',
+  'baltic_blue'
+];
 
 // This method converts setting labels from the naming_convention used within
 // GLTF models to Title Case.
@@ -37,13 +50,13 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
       <fieldset>
         <h4>Body Style</h4>
         {bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
-          <div className="option">
+          <div className="option" key={`body-style--${bodyStyle}`}>
             <input
               type="radio"
               name="body-style"
               id={bodyStyle}
               checked={settings.bodyStyle === bodyStyle}
-              onChange={(e) => handleSettings(e.target.id)}
+              onChange={(e) => handleSettings('bodyStyle', e.target.id)}
             />
             <label htmlFor={bodyStyle}>{convertCase(bodyStyle)}</label>
           </div>
@@ -52,13 +65,13 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
       <fieldset>
         <h4>Paint Colour</h4>
         {paintColours.map((paintColour: Settings['paintColour']) => (
-          <div className="option">
+          <div className="option" key={`paint-colour--${paintColour}`}>
             <input
               type="radio"
               name="pearl_white-colour"
               id={paintColour}
               checked={settings.paintColour === paintColour}
-              onChange={(e) => handleSettings(e.target.id)}
+              onChange={(e) => handleSettings('paintColour', e.target.id)}
             />
             <label htmlFor={paintColour}>{convertCase(paintColour)}</label>
           </div>

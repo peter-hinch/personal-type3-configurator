@@ -26,8 +26,17 @@ const App: React.FC = () => {
   const [toastVisible, setToastVisible] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>('');
 
-  const handleSettings = (value: Settings['bodyStyle']) =>
-    setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
+  const handleSettings = (
+    key: string,
+    value: Settings['bodyStyle'] | Settings['paintColour']
+  ) => {
+    if (key === 'bodyStyle') {
+      setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
+    }
+    if (key === 'paintColour') {
+      setSettings((prevState) => ({ ...prevState, paintColour: value }));
+    }
+  };
 
   const handleToast = (isVisible: boolean, message?: string) => {
     if (message) {
