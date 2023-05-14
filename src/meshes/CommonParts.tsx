@@ -1,18 +1,12 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 
 const CommonParts: React.FC<{
   nodes;
   materials;
-  settings: Settings;
+  paintMaterial: THREE.Material;
   handleToast: Function;
-}> = ({ nodes, materials, settings, handleToast }) => {
+}> = ({ nodes, materials, paintMaterial, handleToast }) => {
   const commonParts = useRef();
-
-  const paintMaterial = useMemo(() => {
-    if (materials[`${settings.paintColour}`]) {
-      return materials[`${settings.paintColour}`];
-    }
-  }, [materials, settings]);
 
   return (
     <group ref={commonParts} dispose={null}>

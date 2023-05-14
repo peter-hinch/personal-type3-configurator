@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
 
 import CommonParts from './meshes/CommonParts.tsx';
@@ -19,26 +19,32 @@ const Car: React.FC<{ settings: Settings; handleToast: Function }> = ({
     );
   }, [scene, nodes, materials]);
 
+  const paintMaterial = useMemo(() => {
+    if (materials[`${settings.paintColour}`]) {
+      return materials[`${settings.paintColour}`];
+    }
+  }, [materials, settings]);
+
   return (
     <>
       <CommonParts
         nodes={nodes}
         materials={materials}
-        settings={settings}
+        paintMaterial={paintMaterial}
         handleToast={handleToast}
       />
       {settings.bodyStyle === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
-          settings={settings}
+          paintMaterial={paintMaterial}
         />
       )}
       {settings.bodyStyle === 'fastback' && (
         <BodyStyleFastbackParts
           nodes={nodes}
           materials={materials}
-          settings={settings}
+          paintMaterial={paintMaterial}
         />
       )}
     </>

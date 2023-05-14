@@ -3,19 +3,19 @@ import React, { useRef } from 'react';
 const BodyStyleFastbackParts: React.FC<{
   nodes;
   materials;
-  settings: Settings;
-}> = ({ nodes, materials, settings }) => {
+  paintMaterial: THREE.Material;
+}> = ({ nodes, materials, paintMaterial }) => {
   const bodyStyleFastbackParts = useRef();
 
   return (
     <group ref={bodyStyleFastbackParts} dispose={null}>
       <mesh
         geometry={nodes.rear_windows_fastback.geometry}
-        material={materials.pearl_white}
+        material={paintMaterial}
       />
       <mesh
         geometry={nodes.roof_skin_fastback.geometry}
-        material={materials.pearl_white}
+        material={paintMaterial}
       />
     </group>
   );
