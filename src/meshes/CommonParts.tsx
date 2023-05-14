@@ -14,6 +14,7 @@ const CommonParts: React.FC<{
       <mesh geometry={nodes.chassis.geometry} material={materials.chassis} />
       <mesh
         geometry={nodes.door_left.geometry}
+        position={[0.725, 0, 0.725]}
         material={paintMaterial}
         onPointerEnter={() => {
           handleToast(true, 'open door');
@@ -22,6 +23,7 @@ const CommonParts: React.FC<{
       />
       <mesh
         geometry={nodes.door_right.geometry}
+        position={[-0.725, 0, 0.725]}
         material={paintMaterial}
         onPointerEnter={() => {
           handleToast(true, 'open door');
