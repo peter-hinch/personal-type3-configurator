@@ -4,8 +4,8 @@ const CommonParts: React.FC<{
   nodes;
   materials;
   settings: Settings;
-  handleInteraction: Function;
-}> = ({ nodes, materials, settings, handleInteraction }) => {
+  handleToast: Function;
+}> = ({ nodes, materials, settings, handleToast }) => {
   const commonParts = useRef();
 
   return (
@@ -15,22 +15,18 @@ const CommonParts: React.FC<{
       <mesh
         geometry={nodes.door_left.geometry}
         material={materials.pearl_white}
-        onPointerEnter={(event) => {
-          handleInteraction(event, 'mouse entering left door');
+        onPointerEnter={() => {
+          handleToast(true, 'open door');
         }}
-        onPointerLeave={(event) => {
-          handleInteraction(event, 'mouse leaving left door');
-        }}
+        onPointerLeave={() => handleToast(false)}
       />
       <mesh
         geometry={nodes.door_right.geometry}
         material={materials.pearl_white}
-        onPointerEnter={(event) => {
-          handleInteraction(event, 'mouse entering right door');
+        onPointerEnter={() => {
+          handleToast(true, 'open door');
         }}
-        onPointerLeave={(event) => {
-          handleInteraction(event, 'mouse leaving right door');
-        }}
+        onPointerLeave={() => handleToast(false)}
       />
       <mesh
         geometry={nodes.front_fascia.geometry}

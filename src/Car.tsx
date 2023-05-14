@@ -5,7 +5,10 @@ import CommonParts from './meshes/CommonParts.tsx';
 import BodyStyleSquarebackParts from './meshes/BodyStyleSquarebackParts.tsx';
 import BodyStyleFastbackParts from './meshes/BodyStyleFastbackParts.tsx';
 
-const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
+const Car: React.FC<{ settings: Settings; handleToast: Function }> = ({
+  settings,
+  handleToast
+}) => {
   // @ts-ignore
   const { scene, nodes, materials } = useGLTF('/volkswagen-type3.glb');
 
@@ -16,17 +19,13 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
     );
   }, [scene, nodes, materials]);
 
-  const handleInteraction = (event, cta: string) => {
-    console.log(cta);
-  };
-
   return (
     <>
       <CommonParts
         nodes={nodes}
         materials={materials}
         settings={settings}
-        handleInteraction={handleInteraction}
+        handleToast={handleToast}
       />
       {settings.bodyStyle === 'squareback' && (
         <BodyStyleSquarebackParts

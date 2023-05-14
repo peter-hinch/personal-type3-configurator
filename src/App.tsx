@@ -23,14 +23,29 @@ const App: React.FC = () => {
     bodyStyle: 'squareback',
     paintColour: 'pearl_white'
   });
+  const [toastVisible, setToastVisible] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
 
   const handleSettings = (value: Settings['bodyStyle']) =>
     setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
 
+  const handleToast = (isVisible: boolean, message?: string) => {
+    if (message) {
+      setToastMessage(message);
+    } else {
+      setToastMessage('');
+    }
+    if (isVisible) {
+      setToastVisible(true);
+    } else {
+      setToastVisible(false);
+    }
+  };
+
   return (
     <>
       <Controls settings={settings} handleSettings={handleSettings} />
-      <Toast isVisible={true} message={'open ze door'} />
+      <Toast isVisible={toastVisible} message={toastMessage} />
       <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }}>
         <color attach="background" args={['#101010']} />
         <fog attach="fog" args={['#101010', 10, 20]} />
@@ -44,6 +59,7 @@ const App: React.FC = () => {
             <Stage>
               <Car
                 settings={settings}
+                handleToast={handleToast}
                 position={[0, 0, 0]}
                 scale={1}
                 rotation-y={-Math.PI / 4}
