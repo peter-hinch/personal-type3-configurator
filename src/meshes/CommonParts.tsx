@@ -53,6 +53,7 @@ const CommonParts: React.FC<{
       />
       <mesh geometry={nodes.tyre.geometry} material={materials.chassis} />
       <mesh geometry={nodes.windscreen.geometry} material={materials.glass} />
+      <mesh geometry={nodes.Cylinder001.geometry} material={materials.chrome} />
     </group>
   );
 };
