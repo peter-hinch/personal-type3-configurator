@@ -6,11 +6,13 @@ declare global {
     bodyStyle: 'squareback' | 'notchback' | 'fastback';
     paintColour:
       | 'pearl_white'
+      | 'black'
       | 'vw_blue'
       | 'granada_red'
       | 'delta_green'
       | 'sea_sand'
-      | 'baltic_blue';
+      | 'baltic_blue'
+      | 'lotus_white';
   };
 }
 
@@ -21,11 +23,13 @@ const bodyStyles: Settings['bodyStyle'][] = [
 ];
 const paintColours: Settings['paintColour'][] = [
   'pearl_white',
+  'black',
   'vw_blue',
   'granada_red',
   'delta_green',
   'sea_sand',
-  'baltic_blue'
+  'baltic_blue',
+  'lotus_white'
 ];
 
 // This method converts setting labels from the naming_convention used within
