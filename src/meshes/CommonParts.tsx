@@ -16,19 +16,19 @@ const CommonParts: React.FC<{
         geometry={nodes.door_left.geometry}
         position={[0.725, 0, 0.725]}
         material={paintMaterial}
-        onPointerEnter={() => {
-          handleToast(true, 'open door');
-        }}
-        onPointerLeave={() => handleToast(false)}
+        // onPointerEnter={() => {
+        //   handleToast(true, 'open door');
+        // }}
+        // onPointerLeave={() => handleToast(false)}
       />
       <mesh
         geometry={nodes.door_right.geometry}
         position={[-0.725, 0, 0.725]}
         material={paintMaterial}
-        onPointerEnter={() => {
-          handleToast(true, 'open door');
-        }}
-        onPointerLeave={() => handleToast(false)}
+        // onPointerEnter={() => {
+        //   handleToast(true, 'open door');
+        // }}
+        // onPointerLeave={() => handleToast(false)}
       />
       <mesh geometry={nodes.front_fascia.geometry} material={paintMaterial} />
       <mesh geometry={nodes.front_wing.geometry} material={paintMaterial} />
