@@ -5,13 +5,9 @@ import CommonParts from './meshes/CommonParts.tsx';
 import BodyStyleSquarebackParts from './meshes/BodyStyleSquarebackParts.tsx';
 import BodyStyleFastbackParts from './meshes/BodyStyleFastbackParts.tsx';
 
-const Car: React.FC<{ settings: Settings; handleToast: Function }> = ({
-  settings,
-  handleToast
-}) => {
+const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
   // @ts-ignore
   const { scene, nodes, materials } = useGLTF('/volkswagen-type3.glb');
-  const [paintMaterial, setPaintMaterial] = useState(materials.chassis);
 
   useLayoutEffect(() => {
     scene.traverse(
@@ -20,32 +16,25 @@ const Car: React.FC<{ settings: Settings; handleToast: Function }> = ({
     );
   }, [scene, nodes, materials]);
 
-  useEffect(() => {
-    if (materials[`${settings.paintColour}`]) {
-      setPaintMaterial(materials[`${settings.paintColour}`]);
-    }
-  }, [materials, settings]);
-
   return (
     <>
       <CommonParts
         nodes={nodes}
         materials={materials}
-        paintMaterial={paintMaterial}
-        handleToast={handleToast}
+        paintColour={settings.paintColour.hex}
       />
       {settings.bodyStyle === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
-          paintMaterial={paintMaterial}
+          paintColour={settings.paintColour.hex}
         />
       )}
       {settings.bodyStyle === 'fastback' && (
         <BodyStyleFastbackParts
           nodes={nodes}
           materials={materials}
-          paintMaterial={paintMaterial}
+          paintColour={settings.paintColour.hex}
         />
       )}
     </>

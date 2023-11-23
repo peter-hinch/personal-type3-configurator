@@ -15,13 +15,12 @@ import {
 import Car from './Car.tsx';
 // @ts-ignore
 import Controls from './ui/Controls.tsx';
-// @ts-ignore
-import Toast from './ui/Toast.tsx';
+import { vehicleData } from './data/vehicleData.js';
 
 const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({
-    bodyStyle: 'squareback',
-    paintColour: 'pearl_white'
+    bodyStyle: vehicleData.bodyStyles[0],
+    paintColour: vehicleData.paintColours[0]
   });
   const [toastVisible, setToastVisible] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>('');
@@ -34,7 +33,14 @@ const App: React.FC = () => {
       setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
     }
     if (key === 'paintColour') {
-      setSettings((prevState) => ({ ...prevState, paintColour: value }));
+      console.log(value);
+      const newPaintColour = vehicleData?.paintColours?.find(
+        (colour) => value === colour?.id
+      );
+      setSettings((prevState) => ({
+        ...prevState,
+        paintColour: newPaintColour
+      }));
     }
   };
 
@@ -54,7 +60,6 @@ const App: React.FC = () => {
   return (
     <>
       <Controls settings={settings} handleSettings={handleSettings} />
-      <Toast isVisible={toastVisible} message={toastMessage} />
       <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }}>
         <color attach="background" args={['#101010']} />
         <fog attach="fog" args={['#101010', 10, 20]} />

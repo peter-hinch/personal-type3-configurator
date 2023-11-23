@@ -1,36 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { vehicleData } from '../data/vehicleData';
+
 declare global {
   type Settings = {
     bodyStyle: 'squareback' | 'notchback' | 'fastback';
-    paintColour:
-      | 'pearl_white'
-      | 'black'
-      | 'vw_blue'
-      | 'granada_red'
-      | 'delta_green'
-      | 'sea_sand'
-      | 'baltic_blue'
-      | 'lotus_white';
+    paintColour: {
+      id: string;
+      name: string;
+      hex: string;
+      yearMin: number;
+      yearMax: number;
+      paintCode?: string;
+    };
   };
 }
-
-const bodyStyles: Settings['bodyStyle'][] = [
-  'squareback',
-  'notchback',
-  'fastback'
-];
-const paintColours: Settings['paintColour'][] = [
-  'pearl_white',
-  'black',
-  'vw_blue',
-  'granada_red',
-  'delta_green',
-  'sea_sand',
-  'baltic_blue',
-  'lotus_white'
-];
 
 // This method converts setting labels from the naming_convention used within
 // GLTF models to Title Case.
@@ -53,7 +38,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
     <StyledControls>
       <fieldset>
         <h4>Body Style</h4>
-        {bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
+        {vehicleData?.bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
           <div className="option" key={`body-style--${bodyStyle}`}>
             <input
               type="radio"
@@ -68,18 +53,20 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
       </fieldset>
       <fieldset>
         <h4>Paint Colour</h4>
-        {paintColours.map((paintColour: Settings['paintColour']) => (
-          <div className="option" key={`paint-colour--${paintColour}`}>
-            <input
-              type="radio"
-              name="pearl_white-colour"
-              id={paintColour}
-              checked={settings.paintColour === paintColour}
-              onChange={(e) => handleSettings('paintColour', e.target.id)}
-            />
-            <label htmlFor={paintColour}>{convertCase(paintColour)}</label>
-          </div>
-        ))}
+        {vehicleData?.paintColours.map(
+          (paintColour: Settings['paintColour']) => (
+            <div className="option" key={`paint-colour--${paintColour.id}`}>
+              <input
+                type="radio"
+                name="paint-colour"
+                id={paintColour.id}
+                checked={settings.paintColour.id === paintColour.id}
+                onChange={(e) => handleSettings('paintColour', e.target.id)}
+              />
+              <label htmlFor={paintColour.id}>{paintColour.name}</label>
+            </div>
+          )
+        )}
       </fieldset>
     </StyledControls>
   );
