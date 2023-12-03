@@ -21,16 +21,24 @@ const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({
     bodyStyle: vehicleData.bodyStyles[0],
     paintColour: vehicleData.paintColours[0],
-    wheel: vehicleData.wheels[0]
+    wheel: vehicleData.wheels[0],
+    rideHeight: 0
   });
 
   const handleSettings = (
-    key: string,
-    value: Settings['bodyStyle'] | Settings['paintColour' | Settings['wheel']]
+    key: keyof Settings,
+    value:
+      | Settings['bodyStyle']
+      | Settings['paintColour']
+      | Settings['wheel']
+      | Settings['rideHeight']
   ) => {
-    const newSetting = vehicleData[`${key}s`].find(
-      (setting) => value === setting?.id
-    );
+    let newSetting = value;
+    if (key !== 'rideHeight') {
+      newSetting = vehicleData[`${key}s`].find(
+        (setting) => value === setting?.id
+      );
+    }
     setSettings((prevState) => ({
       ...prevState,
       [key]: newSetting

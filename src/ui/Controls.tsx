@@ -15,6 +15,7 @@ declare global {
       paintCode?: string;
     };
     wheel: { id: string; name: string };
+    rideHeight: number;
   };
 }
 
@@ -83,6 +84,18 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             <label htmlFor={wheel.id}>{wheel.name}</label>
           </div>
         ))}
+      </fieldset>
+      <fieldset>
+        <h4>Ride Height</h4>
+        <input
+          className="option"
+          type="number"
+          step="5"
+          min="-175"
+          max="175"
+          value={settings.rideHeight}
+          onChange={(e) => handleSettings('rideHeight', e.target.value)}
+        />
       </fieldset>
     </StyledControls>
   );
