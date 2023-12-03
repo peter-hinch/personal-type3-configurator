@@ -38,7 +38,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
 }) => {
   return (
     <StyledControls>
-      <fieldset>
+      <fieldset id="body-style">
         <h4>Body Style</h4>
         {vehicleData?.bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
           <div className="option" key={`body-style--${bodyStyle.id}`}>
@@ -53,7 +53,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           </div>
         ))}
       </fieldset>
-      <fieldset>
+      <fieldset id="paint-colour">
         <h4>Paint Colour</h4>
         {vehicleData?.paintColours.map(
           (paintColour: Settings['paintColour']) => (
@@ -70,7 +70,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           )
         )}
       </fieldset>
-      <fieldset>
+      <fieldset id="wheels">
         <h4>Wheels</h4>
         {vehicleData?.wheels.map((wheel: Settings['wheel']) => (
           <div className="option" key={`wheel--${wheel}`}>
@@ -85,7 +85,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           </div>
         ))}
       </fieldset>
-      <fieldset>
+      <fieldset id="ride-height">
         <h4>Ride Height</h4>
         <input
           className="option"
