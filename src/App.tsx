@@ -20,25 +20,21 @@ import { vehicleData } from './data/vehicleData.js';
 const App: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({
     bodyStyle: vehicleData.bodyStyles[0],
-    paintColour: vehicleData.paintColours[0]
+    paintColour: vehicleData.paintColours[0],
+    wheel: vehicleData.wheels[0]
   });
 
   const handleSettings = (
     key: string,
-    value: Settings['bodyStyle'] | Settings['paintColour']
+    value: Settings['bodyStyle'] | Settings['paintColour' | Settings['wheel']]
   ) => {
-    if (key === 'bodyStyle') {
-      setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
-    }
-    if (key === 'paintColour') {
-      const newPaintColour = vehicleData?.paintColours?.find(
-        (colour) => value === colour?.id
-      );
-      setSettings((prevState) => ({
-        ...prevState,
-        paintColour: newPaintColour
-      }));
-    }
+    const newSetting = vehicleData[`${key}s`].find(
+      (setting) => value === setting?.id
+    );
+    setSettings((prevState) => ({
+      ...prevState,
+      [key]: newSetting
+    }));
   };
 
   return (

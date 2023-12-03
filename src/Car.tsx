@@ -24,21 +24,21 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
         materials={materials}
         paintColour={settings.paintColour.hex}
       />
-      {settings.bodyStyle === 'squareback' && (
+      {settings.bodyStyle.id === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
           paintColour={settings.paintColour.hex}
         />
       )}
-      {settings.bodyStyle === 'fastback' && (
+      {settings.bodyStyle.id === 'fastback' && (
         <BodyStyleFastbackParts
           nodes={nodes}
           materials={materials}
           paintColour={settings.paintColour.hex}
         />
       )}
-      <WheelParts nodes={nodes} materials={materials} />
+      <WheelParts nodes={nodes} materials={materials} settings={settings} />
     </>
   );
 };

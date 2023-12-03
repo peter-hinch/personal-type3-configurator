@@ -50,7 +50,6 @@ const CommonParts: React.FC<{
         material={materials.chrome}
       />
       <mesh geometry={nodes.windscreen.geometry} material={materials.glass} />
-      <mesh geometry={nodes.Cylinder001.geometry} material={materials.chrome} />
     </group>
   );
 };

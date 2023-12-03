@@ -5,7 +5,7 @@ import { vehicleData } from '../data/vehicleData';
 
 declare global {
   type Settings = {
-    bodyStyle: 'squareback' | 'notchback' | 'fastback';
+    bodyStyle: { id: string; name: string };
     paintColour: {
       id: string;
       name: string;
@@ -14,6 +14,7 @@ declare global {
       yearMax: number;
       paintCode?: string;
     };
+    wheel: { id: string; name: string };
   };
 }
 
@@ -39,15 +40,15 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
       <fieldset>
         <h4>Body Style</h4>
         {vehicleData?.bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
-          <div className="option" key={`body-style--${bodyStyle}`}>
+          <div className="option" key={`body-style--${bodyStyle.id}`}>
             <input
               type="radio"
               name="body-style"
-              id={bodyStyle}
-              checked={settings.bodyStyle === bodyStyle}
+              id={bodyStyle.id}
+              checked={settings.bodyStyle.id === bodyStyle.id}
               onChange={(e) => handleSettings('bodyStyle', e.target.id)}
             />
-            <label htmlFor={bodyStyle}>{convertCase(bodyStyle)}</label>
+            <label htmlFor={bodyStyle.id}>{bodyStyle.name}</label>
           </div>
         ))}
       </fieldset>
@@ -67,6 +68,21 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             </div>
           )
         )}
+      </fieldset>
+      <fieldset>
+        <h4>Wheels</h4>
+        {vehicleData?.wheels.map((wheel: Settings['wheel']) => (
+          <div className="option" key={`wheel--${wheel}`}>
+            <input
+              type="radio"
+              name="wheel"
+              id={wheel.id}
+              checked={settings.wheel.id === wheel.id}
+              onChange={(e) => handleSettings('wheel', e.target.id)}
+            />
+            <label htmlFor={wheel.id}>{wheel.name}</label>
+          </div>
+        ))}
       </fieldset>
     </StyledControls>
   );

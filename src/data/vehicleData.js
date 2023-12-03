@@ -1,5 +1,9 @@
 export const vehicleData = {
-  bodyStyles: ['squareback', 'notchback', 'fastback'],
+  bodyStyles: [
+    { id: 'squareback', name: 'Variant / Squareback' },
+    { id: 'notchback', name: 'Notchback' },
+    { id: 'fastback', name: 'Fastback' }
+  ],
   paintColours: [
     // Colours reference:
     // https://www.thesamba.com/vw/archives/info/paintcodest3.php
@@ -67,5 +71,6 @@ export const vehicleData = {
       yearMax: 1968,
       paintCode: 'L282'
     }
-  ]
+  ],
+  wheels: [{ id: '2litre', name: '2 Litre Alloy' }]
 };
