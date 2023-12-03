@@ -22,8 +22,6 @@ const App: React.FC = () => {
     bodyStyle: vehicleData.bodyStyles[0],
     paintColour: vehicleData.paintColours[0]
   });
-  const [toastVisible, setToastVisible] = useState<boolean>(false);
-  const [toastMessage, setToastMessage] = useState<string>('');
 
   const handleSettings = (
     key: string,
@@ -33,7 +31,6 @@ const App: React.FC = () => {
       setSettings((prevState) => ({ ...prevState, bodyStyle: value }));
     }
     if (key === 'paintColour') {
-      console.log(value);
       const newPaintColour = vehicleData?.paintColours?.find(
         (colour) => value === colour?.id
       );
@@ -41,19 +38,6 @@ const App: React.FC = () => {
         ...prevState,
         paintColour: newPaintColour
       }));
-    }
-  };
-
-  const handleToast = (isVisible: boolean, message?: string) => {
-    if (message) {
-      setToastMessage(message);
-    } else {
-      setToastMessage('');
-    }
-    if (isVisible) {
-      setToastVisible(true);
-    } else {
-      setToastVisible(false);
     }
   };
 
@@ -73,7 +57,6 @@ const App: React.FC = () => {
             <Stage>
               <Car
                 settings={settings}
-                handleToast={handleToast}
                 position={[0, 0, 0]}
                 scale={1}
                 rotation-y={-Math.PI / 4}
