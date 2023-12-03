@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SettingGroup from './SettingGroup.tsx';
 import { vehicleData } from '../data/vehicleData';
 
 declare global {
@@ -38,8 +39,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
 }) => {
   return (
     <StyledControls>
-      <fieldset id="body-style">
-        <h4>Body Style</h4>
+      <SettingGroup title="Body Style">
         {vehicleData?.bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
           <div className="option" key={`body-style--${bodyStyle.id}`}>
             <input
@@ -52,9 +52,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             <label htmlFor={bodyStyle.id}>{bodyStyle.name}</label>
           </div>
         ))}
-      </fieldset>
-      <fieldset id="paint-colour">
-        <h4>Paint Colour</h4>
+      </SettingGroup>
+      <SettingGroup title="Paint Colour">
         {vehicleData?.paintColours.map(
           (paintColour: Settings['paintColour']) => (
             <div className="option" key={`paint-colour--${paintColour.id}`}>
@@ -69,9 +68,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             </div>
           )
         )}
-      </fieldset>
-      <fieldset id="wheels">
-        <h4>Wheels</h4>
+      </SettingGroup>
+      <SettingGroup title="Wheels">
         {vehicleData?.wheels.map((wheel: Settings['wheel']) => (
           <div className="option" key={`wheel--${wheel}`}>
             <input
@@ -84,9 +82,16 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             <label htmlFor={wheel.id}>{wheel.name}</label>
           </div>
         ))}
-      </fieldset>
-      <fieldset id="ride-height">
-        <h4>Ride Height</h4>
+      </SettingGroup>
+      <SettingGroup title="Ride Height">
+        <div className="option">
+          <input type="radio" name="ride-height-units" id="inches" />
+          <label htmlFor="inches">Inches</label>
+        </div>
+        <div className="option">
+          <input type="radio" name="ride-height-units" id="mm" />
+          <label htmlFor="mm">Millimetres</label>
+        </div>
         <input
           className="option"
           type="number"
@@ -96,7 +101,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           value={settings.rideHeight}
           onChange={(e) => handleSettings('rideHeight', e.target.value)}
         />
-      </fieldset>
+      </SettingGroup>
     </StyledControls>
   );
 };
@@ -106,24 +111,6 @@ const StyledControls = styled.div`
   top: 0.3rem;
   left: 0.3rem;
   z-index: 100;
-
-  fieldset {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    margin: 0 0 0.5rem;
-    background: white;
-    border: none;
-    border-radius: 0.5rem;
-
-    .option {
-      margin-bottom: 0.3rem;
-
-      input {
-        margin-left: 0;
-      }
-    }
-  }
 `;
 
 export default Controls;
