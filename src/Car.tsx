@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 
 import CommonParts from './meshes/CommonParts.tsx';
 import BodyStyleSquarebackParts from './meshes/BodyStyleSquarebackParts.tsx';
 import BodyStyleFastbackParts from './meshes/BodyStyleFastbackParts.tsx';
+import WheelParts from './meshes/WheelParts.tsx';
 
 const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
   // @ts-ignore
@@ -37,6 +38,7 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
           paintColour={settings.paintColour.hex}
         />
       )}
+      <WheelParts nodes={nodes} materials={materials} />
     </>
   );
 };
