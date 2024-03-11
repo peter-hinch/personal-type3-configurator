@@ -14,15 +14,18 @@ const CommonParts: React.FC<{
   return (
     <group ref={commonParts} dispose={null}>
       <mesh geometry={nodes.bonnet.geometry} material={materials.paint} />
-      <mesh geometry={nodes.chassis.geometry} material={materials.chassis} />
+      <mesh
+        geometry={nodes.chassis_pan.geometry}
+        material={materials.chassis}
+      />
       <mesh
         geometry={nodes.door_left.geometry}
-        position={[0.725, 0, 0.725]}
+        // position={[0.725, 0, 0.725]}
         material={materials.paint}
       />
       <mesh
         geometry={nodes.door_right.geometry}
-        position={[-0.725, 0, 0.725]}
+        // position={[-0.725, 0, 0.725]}
         material={materials.paint}
       />
       <mesh geometry={nodes.front_fascia.geometry} material={materials.paint} />
@@ -50,6 +53,11 @@ const CommonParts: React.FC<{
         material={materials.chrome}
       />
       <mesh geometry={nodes.windscreen.geometry} material={materials.glass} />
+      <mesh
+        geometry={nodes.bumper_front.geometry}
+        material={materials.chrome}
+      />
+      <mesh geometry={nodes.bumper_rear.geometry} material={materials.chrome} />
     </group>
   );
 };
