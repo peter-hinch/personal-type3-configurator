@@ -32,11 +32,11 @@ const StyledSettingGroup = styled.fieldset`
   border-radius: 0.5rem;
 
   h4 {
-    margin: 0.25rem 0 0.5rem;
+    margin: 0.25rem 0;
   }
 
   .option {
-    margin-bottom: 0.3rem;
+    margin: 0.25rem 0;
 
     input {
       margin-left: 0;
