@@ -58,6 +58,10 @@ const CommonParts: React.FC<{
         material={materials.chrome}
       />
       <mesh geometry={nodes.bumper_rear.geometry} material={materials.chrome} />
+      <mesh
+        geometry={nodes.body_boot_floor.geometry}
+        material={materials.paint}
+      />
     </group>
   );
 };
