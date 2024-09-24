@@ -31,6 +31,7 @@ const StyledSettingGroup = styled.fieldset`
   background: white;
   border: none;
   border-radius: 0.5rem;
+  user-select: none;
 
   h4 {
     display: flex;
