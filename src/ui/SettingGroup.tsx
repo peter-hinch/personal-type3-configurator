@@ -14,7 +14,8 @@ const SettingGroup: React.FC<{
           setIsExpanded(!isExpanded);
         }}
       >
-        {title}
+        <span>{title}</span>
+        <span>{!isExpanded ? '+' : '-'}</span>
       </h4>
       {isExpanded && children}
     </StyledSettingGroup>
@@ -32,7 +33,11 @@ const StyledSettingGroup = styled.fieldset`
   border-radius: 0.5rem;
 
   h4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin: 0.25rem 0;
+    cursor: pointer;
   }
 
   .option {
