@@ -3,7 +3,8 @@
 // Reference: https://codesandbox.io/s/q48jgy
 // Reference: https://codesandbox.io/s/9b56t
 
-import React, { useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
   PresentationControls,
@@ -18,13 +19,17 @@ import Controls from './ui/Controls.tsx';
 import { vehicleData } from './data/vehicleData.js';
 
 const App: React.FC = () => {
-  const [settings, setSettings] = useState<Settings>({
-    bodyStyle: vehicleData.bodyStyles[0],
-    paintColour: vehicleData.paintColours[0],
-    wheel: vehicleData.wheels[0],
-    rideHeight: 0,
-    beamWidth: 0
-  });
+  const [parameters, setParameters] = useSearchParams();
+  const settingsParameters = parameters.get('settings');
+  const settings = settingsParameters
+    ? JSON.parse(decodeURIComponent(settingsParameters))
+    : {
+        bodyStyle: vehicleData.bodyStyles[0],
+        paintColour: vehicleData.paintColours[0],
+        wheel: vehicleData.wheels[0],
+        rideHeight: 0,
+        beamWidth: 0
+      };
 
   const handleSettings = (
     key: keyof Settings,
@@ -41,10 +46,11 @@ const App: React.FC = () => {
         (setting) => value === setting?.id
       );
     }
-    setSettings((prevState) => ({
-      ...prevState,
-      [key]: newSetting
-    }));
+
+    const newSettings = { ...settings, [key]: newSetting };
+    setParameters({
+      settings: encodeURIComponent(JSON.stringify(newSettings))
+    });
   };
 
   // useFrame(() => {
