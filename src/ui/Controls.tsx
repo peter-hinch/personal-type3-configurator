@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import SettingGroup from './SettingGroup.tsx';
@@ -17,29 +17,24 @@ declare global {
     };
     wheel: { id: string; name: string };
     rideHeight: number;
+    beamWidth: number;
   };
 }
-
-// This method converts setting labels from the naming_convention used within
-// GLTF models to Title Case.
-const convertCase = (input: string) => {
-  const words: string[] = input.split('_');
-  const converted = words.map((word, index) => {
-    const initial = word.charAt(0).toUpperCase();
-    return `
-      ${initial}${word.substring(1)}${index === word.length ? '' : ' '}
-    `;
-  });
-  return converted;
-};
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,
   handleSettings
 }) => {
+  const [uom, setUom] = useState<string>('mm');
+
+  const inchesToMm = (value: number) =>
+    parseFloat((value * 25.4)?.toFixed(2)) || 0;
+  const mmToInches = (value: number) =>
+    parseFloat((value / 25.4)?.toFixed(2)) || 0;
+
   return (
     <StyledControls>
-      <SettingGroup title="Body Style">
+      <SettingGroup title="Body style">
         {vehicleData?.bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
           <div className="option" key={`body-style--${bodyStyle.id}`}>
             <input
@@ -53,7 +48,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           </div>
         ))}
       </SettingGroup>
-      <SettingGroup title="Paint Colour">
+      <SettingGroup title="Paint colour">
         {vehicleData?.paintColours.map(
           (paintColour: Settings['paintColour']) => (
             <div className="option" key={`paint-colour--${paintColour.id}`}>
@@ -83,24 +78,95 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           </div>
         ))}
       </SettingGroup>
-      <SettingGroup title="Ride Height">
+      <SettingGroup title="Ride height">
+        <span>
+          {uom === 'mm' ? (
+            <>
+              {/* Input for mm */}
+              <input
+                className="option"
+                type="number"
+                step="5"
+                min="-175"
+                max="175"
+                value={settings.rideHeight}
+                onChange={(e) => handleSettings('rideHeight', e.target.value)}
+              />
+            </>
+          ) : (
+            <>
+              {/* Input for inches */}
+              <input
+                className="option"
+                type="number"
+                step="0.25"
+                min="-6.75"
+                max="6.75"
+                value={mmToInches(settings.rideHeight)}
+                onChange={(e) =>
+                  handleSettings('rideHeight', inchesToMm(e.target.value))
+                }
+              />
+            </>
+          )}
+          {` ${uom}`}
+        </span>
+      </SettingGroup>
+      <SettingGroup title="Beam width">
+        <span>
+          {uom === 'mm' ? (
+            <>
+              {/* Input for mm */}
+              <input
+                className="option"
+                type="number"
+                step="25"
+                min="-100"
+                max="0"
+                value={settings.beamWidth}
+                onChange={(e) => handleSettings('beamWidth', e.target.value)}
+              />
+            </>
+          ) : (
+            <>
+              {/* Input for inches */}
+              <input
+                className="option"
+                type="number"
+                step="1"
+                min="-4"
+                max="0"
+                value={mmToInches(settings.beamWidth)}
+                onChange={(e) =>
+                  handleSettings('beamWidth', inchesToMm(e.target.value))
+                }
+              />
+            </>
+          )}
+          {` ${uom}`}
+        </span>
+      </SettingGroup>
+      <SettingGroup title="Units">
         <div className="option">
-          <input type="radio" name="ride-height-units" id="inches" />
+          <input
+            type="radio"
+            name="ride-height-units"
+            id="inches"
+            checked={uom === 'inches'}
+            onChange={(e) => setUom(e.target.id)}
+          />
           <label htmlFor="inches">Inches</label>
         </div>
         <div className="option">
-          <input type="radio" name="ride-height-units" id="mm" />
+          <input
+            type="radio"
+            name="ride-height-units"
+            id="mm"
+            checked={uom === 'mm'}
+            onChange={(e) => setUom(e.target.id)}
+          />
           <label htmlFor="mm">Millimetres</label>
         </div>
-        <input
-          className="option"
-          type="number"
-          step="5"
-          min="-175"
-          max="175"
-          value={settings.rideHeight}
-          onChange={(e) => handleSettings('rideHeight', e.target.value)}
-        />
       </SettingGroup>
     </StyledControls>
   );

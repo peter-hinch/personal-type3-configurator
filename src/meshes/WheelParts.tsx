@@ -4,28 +4,52 @@ const WheelParts: React.FC<{
   nodes: any;
   materials: any;
   settings: Settings;
-}> = ({ nodes, materials }) => {
+}> = ({ nodes, materials, settings }) => {
   const wheelParts = useRef();
+  const wheelFrontLeft = useRef();
+  const wheelFrontRight = useRef();
+  const wheelRearLeft = useRef();
+  const wheelRearRight = useRef();
 
-  const instances = ['fl', 'fr', 'rl', 'rr'];
+  const beamWidth = settings.beamWidth / 1000;
+
+  const wheels = [
+    { key: 'fl', ref: wheelFrontLeft },
+    { key: 'fr', ref: wheelFrontRight },
+    { key: 'rl', ref: wheelRearLeft },
+    { key: 'rr', ref: wheelRearRight }
+  ];
+
+  const calcOffset = (key: string) => {
+    switch (key) {
+      case 'fl':
+        return beamWidth;
+      case 'fr':
+        return -beamWidth;
+      default:
+        return 0;
+    }
+  };
 
   return (
     <group ref={wheelParts} dispose={null}>
-      {/* Rims - 2 Litre Alloys */}
-      {instances.map((instance) => (
-        <mesh
-          key={`rim_${instance}_2litre`}
-          geometry={nodes[`rim_${instance}_2litre`].geometry}
-          material={materials.chrome}
-        />
-      ))}
-      {/* Tyres */}
-      {instances.map((instance) => (
-        <mesh
-          key={`tyre_${instance}`}
-          geometry={nodes[`tyre_${instance}`].geometry}
-          material={materials.chassis}
-        />
+      {wheels?.map((wheel) => (
+        <group
+          ref={wheel.ref}
+          dispose={null}
+          position={[calcOffset(wheel.key), 0, 0]}
+        >
+          <mesh
+            key={`rim_${wheel?.key}_2litre`}
+            geometry={nodes[`rim_${wheel?.key}_2litre`].geometry}
+            material={materials.chrome}
+          />
+          <mesh
+            key={`tyre_${wheel?.key}`}
+            geometry={nodes[`tyre_${wheel?.key}`].geometry}
+            material={materials.chassis}
+          />
+        </group>
       ))}
     </group>
   );

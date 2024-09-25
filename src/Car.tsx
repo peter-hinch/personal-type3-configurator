@@ -15,6 +15,8 @@ const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
     );
   }, [scene, nodes, materials]);
 
+  // console.log(nodes);
+
   return (
     <>
       <BodyParts nodes={nodes} materials={materials} settings={settings} />

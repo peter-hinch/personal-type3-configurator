@@ -4,7 +4,7 @@
 // Reference: https://codesandbox.io/s/9b56t
 
 import React, { useState, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import {
   PresentationControls,
   Stage,
@@ -22,7 +22,8 @@ const App: React.FC = () => {
     bodyStyle: vehicleData.bodyStyles[0],
     paintColour: vehicleData.paintColours[0],
     wheel: vehicleData.wheels[0],
-    rideHeight: 0
+    rideHeight: 0,
+    beamWidth: 0
   });
 
   const handleSettings = (
@@ -32,9 +33,10 @@ const App: React.FC = () => {
       | Settings['paintColour']
       | Settings['wheel']
       | Settings['rideHeight']
+      | Settings['beamWidth']
   ) => {
     let newSetting = value;
-    if (key !== 'rideHeight') {
+    if (key !== 'rideHeight' && key !== 'beamWidth') {
       newSetting = vehicleData[`${key}s`].find(
         (setting) => value === setting?.id
       );
@@ -44,6 +46,10 @@ const App: React.FC = () => {
       [key]: newSetting
     }));
   };
+
+  // useFrame(() => {
+  //   console.log('new frame');
+  // });
 
   return (
     <>
