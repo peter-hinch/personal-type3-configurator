@@ -1,7 +1,5 @@
 import React, { useRef } from 'react';
 
-import { vehicleData } from './../data/vehicleData.js';
-
 const WheelParts: React.FC<{
   nodes: any;
   materials: any;
@@ -12,10 +10,6 @@ const WheelParts: React.FC<{
   const wheelFrontRight = useRef();
   const wheelRearLeft = useRef();
   const wheelRearRight = useRef();
-
-  const wheelData = vehicleData.wheels.find(
-    (wheel) => wheel.id === settings.wheelId
-  );
 
   const beamWidth = settings.beamWidth / 1000;
 
@@ -47,8 +41,8 @@ const WheelParts: React.FC<{
           position={[calcOffset(wheel.key), 0, 0]}
         >
           <mesh
-            key={`rim_${wheel?.key}_2litre`}
-            geometry={nodes[`rim_${wheel?.key}_2litre`].geometry}
+            key={`rim_${wheel?.key}_${settings.wheelId}`}
+            geometry={nodes[`rim_${wheel?.key}_${settings.wheelId}`].geometry}
             material={materials.chrome}
           />
           <mesh
