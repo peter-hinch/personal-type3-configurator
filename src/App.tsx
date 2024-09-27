@@ -5,7 +5,7 @@
 
 import React, { Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import {
   PresentationControls,
   Stage,
@@ -54,10 +54,6 @@ const App: React.FC = () => {
       settings: encodeURIComponent(JSON.stringify(newSettings))
     });
   };
-
-  // useFrame(() => {
-  //   console.log('new frame');
-  // });
 
   return (
     <>
