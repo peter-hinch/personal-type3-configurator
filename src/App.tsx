@@ -27,7 +27,8 @@ const App: React.FC = () => {
         bodyStyle: vehicleData.bodyStyles[0],
         paintColour: vehicleData.paintColours[0],
         wheel: vehicleData.wheels[0],
-        rideHeight: 0,
+        rideHeightFront: 0,
+        rideHeightRear: 0,
         beamWidth: 0
       };
 
@@ -37,11 +38,12 @@ const App: React.FC = () => {
       | Settings['bodyStyle']
       | Settings['paintColour']
       | Settings['wheel']
-      | Settings['rideHeight']
+      | Settings['rideHeightFront']
+      | Settings['rideHeightRear']
       | Settings['beamWidth']
   ) => {
     let newSetting = value;
-    if (key !== 'rideHeight' && key !== 'beamWidth') {
+    if (!key.includes('rideHeight') && key !== 'beamWidth') {
       newSetting = vehicleData[`${key}s`].find(
         (setting) => value === setting?.id
       );

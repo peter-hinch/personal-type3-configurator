@@ -9,12 +9,25 @@ const BodyParts: React.FC<{
   materials: any;
   settings: Settings;
 }> = ({ nodes, materials, settings }) => {
-  const bodyParts = useRef();
+  const bodyRef = useRef();
 
-  const rideHeight = () => settings.rideHeight / 1000;
+  // TODO: Offset rotation origin
+  const wheelbase = 2400;
+  const rideHeight =
+    Math.min(settings.rideHeightFront, settings.rideHeightRear) / 1000;
+  const rakeAngle = -Math.atan(
+    (settings.rideHeightFront - settings.rideHeightRear - rideHeight) /
+      wheelbase
+  );
+  const rotationOffsetZ = wheelbase / 2 / 1000;
 
   return (
-    <group ref={bodyParts} dispose={null} position={[0, rideHeight(), 0]}>
+    <group
+      ref={bodyRef}
+      dispose={null}
+      position={[0, rideHeight, 0]}
+      rotation={[rakeAngle, 0, 0]}
+    >
       <CommonParts
         nodes={nodes}
         materials={materials}

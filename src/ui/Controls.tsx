@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import SettingGroup from './SettingGroup.tsx';
+import UnitInput from './UnitInput.tsx';
+
 import { vehicleData } from '../data/vehicleData';
 
 declare global {
@@ -16,7 +18,8 @@ declare global {
       paintCode?: string;
     };
     wheel: { id: string; name: string };
-    rideHeight: number;
+    rideHeightFront: number;
+    rideHeightRear: number;
     beamWidth: number;
   };
 }
@@ -26,11 +29,6 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   handleSettings
 }) => {
   const [uom, setUom] = useState<string>('mm');
-
-  const inchesToMm = (value: number) =>
-    parseFloat((value * 25.4)?.toFixed(2)) || 0;
-  const mmToInches = (value: number) =>
-    parseFloat((value / 25.4)?.toFixed(2)) || 0;
 
   return (
     <StyledControls>
@@ -79,72 +77,37 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
         ))}
       </SettingGroup>
       <SettingGroup title="Ride height">
-        <span>
-          {uom === 'mm' ? (
-            <>
-              {/* Input for mm */}
-              <input
-                className="option"
-                type="number"
-                step="5"
-                min="-175"
-                max="175"
-                value={settings.rideHeight}
-                onChange={(e) => handleSettings('rideHeight', e.target.value)}
-              />
-            </>
-          ) : (
-            <>
-              {/* Input for inches */}
-              <input
-                className="option"
-                type="number"
-                step="0.25"
-                min="-6.75"
-                max="6.75"
-                value={mmToInches(settings.rideHeight)}
-                onChange={(e) =>
-                  handleSettings('rideHeight', inchesToMm(e.target.value))
-                }
-              />
-            </>
-          )}
-          {` ${uom}`}
-        </span>
+        <h5>Front</h5>
+        <UnitInput
+          setting="rideHeightFront"
+          uom={uom}
+          step={5}
+          min={-175}
+          max={175}
+          value={settings.rideHeightFront}
+          handleChange={handleSettings}
+        />
+        <h5>Rear</h5>
+        <UnitInput
+          setting="rideHeightRear"
+          uom={uom}
+          step={5}
+          min={-175}
+          max={175}
+          value={settings.rideHeightRear}
+          handleChange={handleSettings}
+        />
       </SettingGroup>
       <SettingGroup title="Beam width">
-        <span>
-          {uom === 'mm' ? (
-            <>
-              {/* Input for mm */}
-              <input
-                className="option"
-                type="number"
-                step="25"
-                min="-100"
-                max="0"
-                value={settings.beamWidth}
-                onChange={(e) => handleSettings('beamWidth', e.target.value)}
-              />
-            </>
-          ) : (
-            <>
-              {/* Input for inches */}
-              <input
-                className="option"
-                type="number"
-                step="1"
-                min="-4"
-                max="0"
-                value={mmToInches(settings.beamWidth)}
-                onChange={(e) =>
-                  handleSettings('beamWidth', inchesToMm(e.target.value))
-                }
-              />
-            </>
-          )}
-          {` ${uom}`}
-        </span>
+        <UnitInput
+          setting="beamWidth"
+          uom={uom}
+          step={25}
+          min={-100}
+          max={0}
+          value={settings.beamWidth}
+          handleChange={handleSettings}
+        />
       </SettingGroup>
       <SettingGroup title="Units">
         <div className="option">
