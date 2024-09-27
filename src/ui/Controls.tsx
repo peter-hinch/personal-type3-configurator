@@ -29,6 +29,25 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   handleSettings
 }) => {
   const [uom, setUom] = useState<string>('mm');
+  const [isRideHeightClamped, setIsRideHeightClamped] = useState<boolean>(true);
+
+  const rideHeightStep = 5;
+
+  const handleRideHeight = (setting: string, value: number) => {
+    if (!setting?.includes('rideHeight')) return;
+
+    if (isRideHeightClamped) {
+      const otherKey = `rideHeight${
+        setting === 'rideHeightFront' ? 'Rear' : 'Front'
+      }`;
+      const otherValue =
+        settings[otherKey] +
+        rideHeightStep * (value > settings[setting] ? 1 : -1);
+      handleSettings(otherKey, otherValue);
+    }
+
+    handleSettings(setting, value);
+  };
 
   return (
     <StyledControls>
@@ -81,21 +100,27 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
         <UnitInput
           setting="rideHeightFront"
           uom={uom}
-          step={5}
+          step={rideHeightStep}
           min={-175}
           max={175}
           value={settings.rideHeightFront}
-          handleChange={handleSettings}
+          handleChange={handleRideHeight}
         />
         <h5>Rear</h5>
         <UnitInput
           setting="rideHeightRear"
           uom={uom}
-          step={5}
+          step={rideHeightStep}
           min={-175}
           max={175}
           value={settings.rideHeightRear}
-          handleChange={handleSettings}
+          handleChange={handleRideHeight}
+        />
+        <h5>Clamp Front / Rear</h5>
+        <input
+          type="checkbox"
+          checked={isRideHeightClamped}
+          onChange={() => setIsRideHeightClamped(!isRideHeightClamped)}
         />
       </SettingGroup>
       <SettingGroup title="Beam width">
