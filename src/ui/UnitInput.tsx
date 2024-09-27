@@ -28,7 +28,7 @@ const UnitInput: React.FC<{
             min={min}
             max={max}
             value={value}
-            onChange={(e) => handleChange(setting, e.target.value)}
+            onChange={(e) => handleChange(setting, e.target.valueAsNumber)}
           />
         </>
       ) : (
@@ -42,7 +42,10 @@ const UnitInput: React.FC<{
             max={maxInches}
             value={mmToInches(value)}
             onChange={(e) =>
-              handleChange(setting, inchesToMm(parseFloat(e.target.value)))
+              handleChange(
+                setting,
+                inchesToMm(parseFloat(e.target.valueAsNumber))
+              )
             }
           />
         </>
