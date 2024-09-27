@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 
+import { vehicleData } from './../data/vehicleData.js';
+
 const WheelParts: React.FC<{
   nodes: any;
   materials: any;
@@ -10,6 +12,10 @@ const WheelParts: React.FC<{
   const wheelFrontRight = useRef();
   const wheelRearLeft = useRef();
   const wheelRearRight = useRef();
+
+  const wheelData = vehicleData.wheels.find(
+    (wheel) => wheel.id === settings.wheelId
+  );
 
   const beamWidth = settings.beamWidth / 1000;
 

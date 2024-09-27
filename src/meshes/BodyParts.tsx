@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 
+import { vehicleData } from './../data/vehicleData.js';
+
 import CommonParts from './CommonParts.tsx';
 import BodyStyleSquarebackParts from './BodyStyleSquarebackParts.tsx';
 import BodyStyleFastbackParts from './BodyStyleFastbackParts.tsx';
@@ -10,6 +12,10 @@ const BodyParts: React.FC<{
   settings: Settings;
 }> = ({ nodes, materials, settings }) => {
   const bodyRef = useRef();
+
+  const paintColourData = vehicleData.paintColours.find(
+    (colour) => colour.id === settings.paintColourId
+  );
 
   // TODO: Offset rotation origin
   const wheelbase = 2400;
@@ -31,20 +37,20 @@ const BodyParts: React.FC<{
       <CommonParts
         nodes={nodes}
         materials={materials}
-        paintColour={settings.paintColour.hex}
+        paintColour={paintColourData?.hex}
       />
-      {settings.bodyStyle.id === 'squareback' && (
+      {settings.bodyStyleId === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
-          paintColour={settings.paintColour.hex}
+          paintColour={paintColourData?.hex}
         />
       )}
-      {settings.bodyStyle.id === 'fastback' && (
+      {settings.bodyStyleId === 'fastback' && (
         <BodyStyleFastbackParts
           nodes={nodes}
           materials={materials}
-          paintColour={settings.paintColour.hex}
+          paintColour={paintColourData?.hex}
         />
       )}
     </group>

@@ -12,16 +12,26 @@ import {
   MeshReflectorMaterial
 } from '@react-three/drei';
 
-// @ts-ignore
-import Car from './Car.tsx';
-// @ts-ignore
-import Controls from './ui/Controls.tsx';
 import { vehicleData } from './data/vehicleData.js';
 
+import Car from './Car.tsx';
+import Controls from './ui/Controls.tsx';
+
+declare global {
+  type Settings = {
+    bodyStyleId: string;
+    paintColourId: string;
+    wheelId: string;
+    rideHeightFront: number;
+    rideHeightRear: number;
+    beamWidth: number;
+  };
+}
+
 const defaultSettings = {
-  bodyStyle: vehicleData.bodyStyles[0],
-  paintColour: vehicleData.paintColours[0],
-  wheel: vehicleData.wheels[0],
+  bodyStyleId: vehicleData.bodyStyles[0].id,
+  paintColourId: vehicleData.paintColours[0].id,
+  wheelId: vehicleData.wheels[0].id,
   rideHeightFront: 0,
   rideHeightRear: 0,
   beamWidth: 0
@@ -37,22 +47,15 @@ const App: React.FC = () => {
   const handleSettings = (
     key: keyof Settings,
     value:
-      | Settings['bodyStyle']
-      | Settings['paintColour']
-      | Settings['wheel']
+      | Settings['bodyStyleId']
+      | Settings['paintColourId']
+      | Settings['wheelId']
       | Settings['rideHeightFront']
       | Settings['rideHeightRear']
       | Settings['beamWidth']
   ) => {
-    let newSetting = value;
-    if (!key.includes('rideHeight') && key !== 'beamWidth') {
-      newSetting = vehicleData[`${key}s`].find(
-        (setting) => value === setting?.id
-      );
-    }
-
     setSettings((prev) => {
-      return { ...prev, [key]: newSetting };
+      return { ...prev, [key]: value };
     });
   };
 

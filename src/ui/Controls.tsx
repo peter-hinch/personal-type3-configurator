@@ -1,28 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import SettingGroup from './SettingGroup.tsx';
-import UnitInput from './UnitInput.tsx';
-
 import { vehicleData } from '../data/vehicleData';
 
-declare global {
-  type Settings = {
-    bodyStyle: { id: string; name: string };
-    paintColour: {
-      id: string;
-      name: string;
-      hex: string;
-      yearMin: number;
-      yearMax: number;
-      paintCode?: string;
-    };
-    wheel: { id: string; name: string };
-    rideHeightFront: number;
-    rideHeightRear: number;
-    beamWidth: number;
-  };
-}
+import SettingGroup from './SettingGroup.tsx';
+import UnitInput from './UnitInput.tsx';
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,
@@ -52,44 +34,42 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   return (
     <StyledControls>
       <SettingGroup title="Body style">
-        {vehicleData?.bodyStyles.map((bodyStyle: Settings['bodyStyle']) => (
+        {vehicleData?.bodyStyles.map((bodyStyle) => (
           <div className="option" key={`body-style--${bodyStyle.id}`}>
             <input
               type="radio"
               name="body-style"
               id={bodyStyle.id}
-              checked={settings.bodyStyle.id === bodyStyle.id}
-              onChange={(e) => handleSettings('bodyStyle', e.target.id)}
+              checked={settings.bodyStyleId === bodyStyle.id}
+              onChange={(e) => handleSettings('bodyStyleId', e.target.id)}
             />
             <label htmlFor={bodyStyle.id}>{bodyStyle.name}</label>
           </div>
         ))}
       </SettingGroup>
       <SettingGroup title="Paint colour">
-        {vehicleData?.paintColours.map(
-          (paintColour: Settings['paintColour']) => (
-            <div className="option" key={`paint-colour--${paintColour.id}`}>
-              <input
-                type="radio"
-                name="paint-colour"
-                id={paintColour.id}
-                checked={settings.paintColour.id === paintColour.id}
-                onChange={(e) => handleSettings('paintColour', e.target.id)}
-              />
-              <label htmlFor={paintColour.id}>{paintColour.name}</label>
-            </div>
-          )
-        )}
+        {vehicleData?.paintColours.map((paintColour) => (
+          <div className="option" key={`paint-colour--${paintColour.id}`}>
+            <input
+              type="radio"
+              name="paint-colour"
+              id={paintColour.id}
+              checked={settings.paintColourId === paintColour.id}
+              onChange={(e) => handleSettings('paintColourId', e.target.id)}
+            />
+            <label htmlFor={paintColour.id}>{paintColour.name}</label>
+          </div>
+        ))}
       </SettingGroup>
       <SettingGroup title="Wheels">
-        {vehicleData?.wheels.map((wheel: Settings['wheel']) => (
+        {vehicleData?.wheels.map((wheel) => (
           <div className="option" key={`wheel--${wheel}`}>
             <input
               type="radio"
               name="wheel"
               id={wheel.id}
-              checked={settings.wheel.id === wheel.id}
-              onChange={(e) => handleSettings('wheel', e.target.id)}
+              checked={settings.wheelId === wheel.id}
+              onChange={(e) => handleSettings('wheelId', e.target.id)}
             />
             <label htmlFor={wheel.id}>{wheel.name}</label>
           </div>
