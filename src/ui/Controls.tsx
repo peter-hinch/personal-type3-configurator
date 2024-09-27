@@ -75,8 +75,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           </div>
         ))}
       </SettingGroup>
-      <SettingGroup title="Ride height">
-        <h5>Front</h5>
+      <SettingGroup title="Suspension">
+        <h5>Front ride height</h5>
         <UnitInput
           setting="rideHeightFront"
           uom={uom}
@@ -86,7 +86,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           value={settings.rideHeightFront}
           handleChange={handleRideHeight}
         />
-        <h5>Rear</h5>
+        <h5>Rear ride height</h5>
         <UnitInput
           setting="rideHeightRear"
           uom={uom}
@@ -102,8 +102,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           checked={isRideHeightClamped}
           onChange={() => setIsRideHeightClamped(!isRideHeightClamped)}
         />
-      </SettingGroup>
-      <SettingGroup title="Beam width">
+        <h5>Beam width</h5>
         <UnitInput
           setting="beamWidth"
           uom={uom}
