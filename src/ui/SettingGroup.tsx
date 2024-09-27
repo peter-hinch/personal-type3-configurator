@@ -33,7 +33,8 @@ const StyledSettingGroup = styled.fieldset`
   border-radius: 0.5rem;
   user-select: none;
 
-  h4 {
+  h4,
+  h5 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
