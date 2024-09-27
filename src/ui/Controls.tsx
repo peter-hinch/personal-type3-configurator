@@ -57,7 +57,10 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
               checked={settings.paintColourId === paintColour.id}
               onChange={(e) => handleSettings('paintColourId', e.target.id)}
             />
-            <label htmlFor={paintColour.id}>{paintColour.name}</label>
+            <label htmlFor={paintColour.id}>
+              {paintColour.name}
+              <StyledColourSwatch colour={paintColour.hex} />
+            </label>
           </div>
         ))}
       </SettingGroup>
@@ -144,6 +147,34 @@ const StyledControls = styled.div`
   top: 0.3rem;
   left: 0.3rem;
   z-index: 100;
+
+  div.option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+
+    input[type='radio'] {
+      margin: 2px 0;
+    }
+
+    label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      width: 100%;
+    }
+  }
+`;
+
+const StyledColourSwatch = styled.span`
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  background: ${(props) => props?.colour};
+  content: '';
 `;
 
 export default Controls;
