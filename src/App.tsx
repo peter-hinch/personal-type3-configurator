@@ -30,7 +30,7 @@ const defaultSettings = {
 const App: React.FC = () => {
   const [parameters, setParameters] = useSearchParams();
   const [settings, setSettings] = useState(
-    JSON.parse(decodeURIComponent(parameters.get('settings') || '')) ||
+    JSON.parse(decodeURIComponent(parameters.get('settings'))) ||
       defaultSettings
   );
 
