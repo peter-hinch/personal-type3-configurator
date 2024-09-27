@@ -35,6 +35,7 @@ const WheelParts: React.FC<{
     <group ref={wheelParts} dispose={null}>
       {wheels?.map((wheel) => (
         <group
+          key={`wheel-${wheel.key}`}
           ref={wheel.ref}
           dispose={null}
           position={[calcOffset(wheel.key), 0, 0]}
