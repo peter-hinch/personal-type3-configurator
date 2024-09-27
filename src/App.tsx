@@ -3,7 +3,7 @@
 // Reference: https://codesandbox.io/s/q48jgy
 // Reference: https://codesandbox.io/s/9b56t
 
-import React, { Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import {
@@ -18,19 +18,21 @@ import Car from './Car.tsx';
 import Controls from './ui/Controls.tsx';
 import { vehicleData } from './data/vehicleData.js';
 
+const defaultSettings = {
+  bodyStyle: vehicleData.bodyStyles[0],
+  paintColour: vehicleData.paintColours[0],
+  wheel: vehicleData.wheels[0],
+  rideHeightFront: 0,
+  rideHeightRear: 0,
+  beamWidth: 0
+};
+
 const App: React.FC = () => {
   const [parameters, setParameters] = useSearchParams();
-  const settingsParameters = parameters.get('settings');
-  const settings = settingsParameters
-    ? JSON.parse(decodeURIComponent(settingsParameters))
-    : {
-        bodyStyle: vehicleData.bodyStyles[0],
-        paintColour: vehicleData.paintColours[0],
-        wheel: vehicleData.wheels[0],
-        rideHeightFront: 0,
-        rideHeightRear: 0,
-        beamWidth: 0
-      };
+  const [settings, setSettings] = useState(
+    JSON.parse(decodeURIComponent(parameters.get('settings') || '')) ||
+      defaultSettings
+  );
 
   const handleSettings = (
     key: keyof Settings,
@@ -49,11 +51,14 @@ const App: React.FC = () => {
       );
     }
 
-    const newSettings = { ...settings, [key]: newSetting };
-    setParameters({
-      settings: encodeURIComponent(JSON.stringify(newSettings))
+    setSettings((prev) => {
+      return { ...prev, [key]: newSetting };
     });
   };
+
+  useEffect(() => {
+    setParameters({ settings: encodeURIComponent(JSON.stringify(settings)) });
+  }, [settings, setParameters]);
 
   return (
     <>
