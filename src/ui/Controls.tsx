@@ -5,6 +5,7 @@ import { vehicleData } from '../data/vehicleData';
 
 import SettingGroup from './SettingGroup.tsx';
 import UnitInput from './UnitInput.tsx';
+import Tooltip from './Tooltip.tsx';
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,
@@ -59,7 +60,11 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             />
             <label htmlFor={paintColour.id}>
               {paintColour.name}
-              <StyledColourSwatch colour={paintColour.hex} />
+              <Tooltip
+                text={`${paintColour.paintCode}: ${paintColour.yearMin}-${paintColour.yearMax}`}
+              >
+                <StyledColourSwatch colour={paintColour.hex} />
+              </Tooltip>
             </label>
           </div>
         ))}
@@ -152,10 +157,10 @@ const StyledControls = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 6px;
+    gap: 0.5rem;
 
     input[type='radio'] {
-      margin: 2px 0;
+      margin: 0.125rem 0;
     }
 
     label {
