@@ -5,7 +5,7 @@ const SettingGroup: React.FC<{
   title: string;
   children: any;
 }> = ({ title, children }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <StyledSettingGroup>
