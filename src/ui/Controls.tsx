@@ -6,6 +6,7 @@ import { vehicleData } from '../data/vehicleData';
 import SettingGroup from './SettingGroup.tsx';
 import UnitInput from './UnitInput.tsx';
 import Tooltip from './Tooltip.tsx';
+import ClampableInputs from './ClampableInputs.tsx';
 
 const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   settings,
@@ -84,35 +85,37 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
         ))}
       </SettingGroup>
       <SettingGroup title="Suspension">
-        <h5>Front ride height</h5>
-        <UnitInput
-          setting="rideHeightFront"
-          uom={uom}
-          step={rideHeightStep}
-          min={-175}
-          max={175}
-          value={settings.rideHeightFront}
-          handleChange={handleRideHeight}
+        <ClampableInputs
+          labelOne={<label htmlFor="rideHeightFront">Front ride height</label>}
+          inputOne={
+            <UnitInput
+              id="rideHeightFront"
+              uom={uom}
+              step={rideHeightStep}
+              min={-175}
+              max={175}
+              value={settings.rideHeightFront}
+              handleChange={handleRideHeight}
+            />
+          }
+          labelTwo={<label htmlFor="rideHeightRear">Rear ride height</label>}
+          inputTwo={
+            <UnitInput
+              id="rideHeightRear"
+              uom={uom}
+              step={rideHeightStep}
+              min={-175}
+              max={175}
+              value={settings.rideHeightRear}
+              handleChange={handleRideHeight}
+            />
+          }
+          isClamped={isRideHeightClamped}
+          handleClamp={setIsRideHeightClamped}
         />
-        <h5>Rear ride height</h5>
+        <label htmlFor="beamWidth">Beam width</label>
         <UnitInput
-          setting="rideHeightRear"
-          uom={uom}
-          step={rideHeightStep}
-          min={-175}
-          max={175}
-          value={settings.rideHeightRear}
-          handleChange={handleRideHeight}
-        />
-        <h5>Clamp Front / Rear</h5>
-        <input
-          type="checkbox"
-          checked={isRideHeightClamped}
-          onChange={() => setIsRideHeightClamped(!isRideHeightClamped)}
-        />
-        <h5>Beam width</h5>
-        <UnitInput
-          setting="beamWidth"
+          id="beamWidth"
           uom={uom}
           step={25}
           min={-100}
