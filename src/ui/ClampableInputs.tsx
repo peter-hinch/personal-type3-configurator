@@ -16,12 +16,11 @@ const ClampableInputs: React.FC<{
   const [isClamped, setIsClamped] = useState<boolean>(true);
 
   const handleClampedInputChange = (key: string, value: number) => {
-    if (!key?.includes('rideHeight')) return;
-
     if (isClamped) {
       // TODO: Handle numeric input (currently only increments work well)
       const otherKey = inputs.find((input) => input.id !== key)?.id;
       const otherValue =
+        //@ts-ignore
         settings[otherKey] + step * (value > settings[key] ? 1 : -1);
       handleSettings(otherKey, otherValue);
     }
@@ -46,8 +45,6 @@ const ClampableInputs: React.FC<{
             />
           </div>
         ))}
-        <div className="input"></div>
-        <div className="input"></div>
       </div>
       <div className="container-clamp">
         <button
