@@ -13,25 +13,6 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
   handleSettings
 }) => {
   const [uom, setUom] = useState<string>('mm');
-  const [isRideHeightClamped, setIsRideHeightClamped] = useState<boolean>(true);
-
-  const rideHeightStep = 5;
-
-  const handleRideHeight = (setting: string, value: number) => {
-    if (!setting?.includes('rideHeight')) return;
-
-    if (isRideHeightClamped) {
-      const otherKey = `rideHeight${
-        setting === 'rideHeightFront' ? 'Rear' : 'Front'
-      }`;
-      const otherValue =
-        settings[otherKey] +
-        rideHeightStep * (value > settings[setting] ? 1 : -1);
-      handleSettings(otherKey, otherValue);
-    }
-
-    handleSettings(setting, value);
-  };
 
   return (
     <StyledControls>
@@ -86,32 +67,16 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
       </SettingGroup>
       <SettingGroup title="Suspension">
         <ClampableInputs
-          labelOne={<label htmlFor="rideHeightFront">Front ride height</label>}
-          inputOne={
-            <UnitInput
-              id="rideHeightFront"
-              uom={uom}
-              step={rideHeightStep}
-              min={-175}
-              max={175}
-              value={settings.rideHeightFront}
-              handleChange={handleRideHeight}
-            />
-          }
-          labelTwo={<label htmlFor="rideHeightRear">Rear ride height</label>}
-          inputTwo={
-            <UnitInput
-              id="rideHeightRear"
-              uom={uom}
-              step={rideHeightStep}
-              min={-175}
-              max={175}
-              value={settings.rideHeightRear}
-              handleChange={handleRideHeight}
-            />
-          }
-          isClamped={isRideHeightClamped}
-          handleClamp={setIsRideHeightClamped}
+          inputs={[
+            { label: 'Front ride height', id: 'rideHeightFront' },
+            { label: 'Rear ride height', id: 'rideHeightRear' }
+          ]}
+          uom={uom}
+          step={5}
+          min={-175}
+          max={175}
+          settings={settings}
+          handleSettings={handleSettings}
         />
         <label htmlFor="beamWidth">Beam width</label>
         <UnitInput
