@@ -3,14 +3,14 @@ import React from 'react';
 import { mmToInches, inchesToMm } from '../utils/utils.ts';
 
 const UnitInput: React.FC<{
-  setting: string;
+  id: string;
   uom: string;
   step: number;
   min: number;
   max: number;
   value: number;
   handleChange: Function;
-}> = ({ setting, uom, step, min, max, value, handleChange }) => {
+}> = ({ id, uom, step, min, max, value, handleChange }) => {
   // TODO: Convert mm to inches while rounding to a convenient fraction
   const stepInches = mmToInches(step);
   const minInches = mmToInches(min);
@@ -22,19 +22,21 @@ const UnitInput: React.FC<{
         <>
           {/* Input for mm */}
           <input
+            id={id}
             className="option"
             type="number"
             step={step}
             min={min}
             max={max}
             value={value}
-            onChange={(e) => handleChange(setting, e.target.valueAsNumber)}
+            onChange={(e) => handleChange(id, e.target.valueAsNumber)}
           />
         </>
       ) : (
         <>
           {/* Input for inches */}
           <input
+            id={id}
             className="option"
             type="number"
             step={stepInches}
@@ -42,10 +44,7 @@ const UnitInput: React.FC<{
             max={maxInches}
             value={mmToInches(value)}
             onChange={(e) =>
-              handleChange(
-                setting,
-                inchesToMm(parseFloat(e.target.valueAsNumber))
-              )
+              handleChange(id, inchesToMm(parseFloat(e.target.valueAsNumber)))
             }
           />
         </>
