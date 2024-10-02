@@ -25,7 +25,6 @@ const BodyParts: React.FC<{
     (settings.rideHeightFront - settings.rideHeightRear - rideHeight) /
       wheelbase
   );
-  const rotationOffsetZ = wheelbase / 2 / 1000;
 
   return (
     <group
