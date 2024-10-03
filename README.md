@@ -1,6 +1,6 @@
 # Type 3 Volkswagen configurator using React Three Fiber
 
-The Volkswagen Type 3 is a vehicle that is near to my heart. As a personal project and a fun way to learn some more about Three JS, I have been building this product configurator. I hope to add some more options as I have time. Thanks for taking a look!
+The Volkswagen Type 3 is a vehicle that is near to my heart. As a personal project and a fun way to teach myself Three JS, I have been building this product configurator. I hope to add some more features and configuration options as I have time to work on it. Thanks for taking a look!
 
 ## I'd like to see the app
 
@@ -11,4 +11,4 @@ Sure! This project has been deployed as a netlify app and can be viewed here:
 
 This project has been created with [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) and [React Three Drei](http://drei.docs.pmnd.rs/getting-started/introduction).
 
-The 3D model for this project was built in Blender.
+The 3D model for this project is being built by myself in [Blender](https://www.blender.org), and is a work in progress.
