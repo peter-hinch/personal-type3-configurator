@@ -14,10 +14,14 @@ const BodyStyleSquarebackParts: React.FC<{
         material={materials.paint}
       />
       <mesh
-        geometry={nodes.rear_windows_square.geometry}
+        geometry={nodes.rear_window_panels_square.geometry}
         material={materials.paint}
       />
       <mesh geometry={nodes.boot_square.geometry} material={materials.paint} />
+      <mesh
+        geometry={nodes.rear_windscreen_square.geometry}
+        material={materials.glass}
+      />
     </group>
   );
 };
