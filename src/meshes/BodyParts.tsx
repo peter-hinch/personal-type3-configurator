@@ -4,6 +4,7 @@ import { vehicleData } from './../data/vehicleData.js';
 
 import CommonParts from './CommonParts.tsx';
 import BodyStyleSquarebackParts from './BodyStyleSquarebackParts.tsx';
+import BodyStyleNotchbackParts from './BodyStyleNotchbackParts.tsx';
 import BodyStyleFastbackParts from './BodyStyleFastbackParts.tsx';
 
 const BodyParts: React.FC<{
@@ -40,6 +41,13 @@ const BodyParts: React.FC<{
       />
       {settings.bodyStyleId === 'squareback' && (
         <BodyStyleSquarebackParts
+          nodes={nodes}
+          materials={materials}
+          paintColour={paintColourData?.hex}
+        />
+      )}
+      {settings.bodyStyleId === 'notchback' && (
+        <BodyStyleNotchbackParts
           nodes={nodes}
           materials={materials}
           paintColour={paintColourData?.hex}
