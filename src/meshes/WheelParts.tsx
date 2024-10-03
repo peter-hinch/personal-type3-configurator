@@ -33,7 +33,9 @@ const WheelParts: React.FC<{
 
   return (
     <group ref={wheelParts} dispose={null}>
-      {wheels?.map((wheel) => (
+      {/* Tyre is only temporary - load wheels and tyres from separate file */}
+      <mesh geometry={nodes.tyre.geometry} material={materials.chassis} />
+      {/* {wheels?.map((wheel) => (
         <group
           key={`wheel-${wheel.key}`}
           ref={wheel.ref}
@@ -51,7 +53,7 @@ const WheelParts: React.FC<{
             material={materials.chassis}
           />
         </group>
-      ))}
+      ))} */}
     </group>
   );
 };
