@@ -23,11 +23,12 @@ const CommonParts: React.FC<{
         // position={[0.725, 0, 0.725]}
         material={materials.paint}
       />
-      <mesh
+      {/* TODO: Separate door if opening is needed */}
+      {/* <mesh
         geometry={nodes.door_right.geometry}
         // position={[-0.725, 0, 0.725]}
         material={materials.paint}
-      />
+      /> */}
       <mesh geometry={nodes.front_fascia.geometry} material={materials.paint} />
       <mesh geometry={nodes.front_wing.geometry} material={materials.paint} />
       <mesh
@@ -53,6 +54,10 @@ const CommonParts: React.FC<{
         material={materials.chrome}
       />
       <mesh geometry={nodes.windscreen.geometry} material={materials.glass} />
+      <mesh
+        geometry={nodes.vent_wing_windows.geometry}
+        material={materials.glass}
+      />
       <mesh
         geometry={nodes.bumper_front.geometry}
         material={materials.chrome}
