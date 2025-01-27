@@ -11,8 +11,9 @@ const WheelParts: React.FC<{
   const wheelRearLeft = useRef();
   const wheelRearRight = useRef();
 
-  const wheelbase = 2400;
-  const trackWidth = 1348;
+  const zOffset = -0.327;
+  const wheelbase = 2400 / 1000;
+  const trackWidth = 1348 / 1000;
   const beamWidth = settings.beamWidth / 1000;
 
   const wheels = [
@@ -25,9 +26,13 @@ const WheelParts: React.FC<{
   const calcWheelPosition = (key: string) => {
     switch (key) {
       case 'fl':
-        return [+beamWidth, 0, 0];
+        return [trackWidth / 2 + beamWidth, zOffset, wheelbase / 2];
       case 'fr':
-        return [-beamWidth, 0, 0];
+        return [-trackWidth / 2 - beamWidth, zOffset, wheelbase / 2];
+      case 'rl':
+        return [trackWidth / 2, zOffset, -wheelbase / 2];
+      case 'rr':
+        return [-trackWidth / 2, zOffset, -wheelbase / 2];
       default:
         return [0, 0, 0];
     }
