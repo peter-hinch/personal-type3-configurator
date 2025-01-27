@@ -11,6 +11,8 @@ const WheelParts: React.FC<{
   const wheelRearLeft = useRef();
   const wheelRearRight = useRef();
 
+  const wheelbase = 2400;
+  const trackWidth = 1348;
   const beamWidth = settings.beamWidth / 1000;
 
   const wheels = [
@@ -20,40 +22,40 @@ const WheelParts: React.FC<{
     { key: 'rr', ref: wheelRearRight }
   ];
 
-  const calcOffset = (key: string) => {
+  const calcWheelPosition = (key: string) => {
     switch (key) {
       case 'fl':
-        return beamWidth;
+        return [+beamWidth, 0, 0];
       case 'fr':
-        return -beamWidth;
+        return [-beamWidth, 0, 0];
       default:
-        return 0;
+        return [0, 0, 0];
     }
   };
 
   return (
     <group ref={wheelParts} dispose={null}>
       {/* Tyre is only temporary - load wheels and tyres from separate file */}
-      <mesh geometry={nodes.tyre.geometry} material={materials.chassis} />
-      {/* {wheels?.map((wheel) => (
+      {/* <mesh geometry={nodes.tyre.geometry} material={materials.rubber} /> */}
+      {wheels?.map((wheel) => (
         <group
           key={`wheel-${wheel.key}`}
           ref={wheel.ref}
           dispose={null}
-          position={[calcOffset(wheel.key), 0, 0]}
+          position={calcWheelPosition(wheel.key)}
         >
-          <mesh
+          {/* <mesh
             key={`rim_${wheel?.key}_${settings.wheelId}`}
             geometry={nodes[`rim_${wheel?.key}_${settings.wheelId}`].geometry}
             material={materials.chrome}
-          />
+          /> */}
           <mesh
             key={`tyre_${wheel?.key}`}
-            geometry={nodes[`tyre_${wheel?.key}`].geometry}
-            material={materials.chassis}
+            geometry={nodes.tyre.geometry}
+            material={materials.rubber}
           />
         </group>
-      ))} */}
+      ))}
     </group>
   );
 };
