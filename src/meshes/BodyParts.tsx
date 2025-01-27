@@ -31,7 +31,7 @@ const BodyParts: React.FC<{
     <group
       ref={bodyRef}
       dispose={null}
-      position={[0, rideHeight, 0]}
+      position={[0, 0.095 + rideHeight, -0.125]}
       rotation={[rakeAngle, 0, 0]}
     >
       <CommonParts
