@@ -6,19 +6,35 @@ import BodyParts from './meshes/BodyParts.tsx';
 
 const Car: React.FC<{ settings: Settings }> = ({ settings }) => {
   // @ts-ignore
-  const { scene, nodes, materials } = useGLTF('/volkswagen-type3.glb');
+  const car = useGLTF('/volkswagen-type3.glb');
+  const tyre = useGLTF('/tyre.glb');
 
   useLayoutEffect(() => {
-    scene.traverse(
+    car.scene.traverse(
       (obj) =>
         obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
     );
-  }, [scene, nodes, materials]);
+  }, [car.scene, car.nodes, car.materials]);
+
+  useLayoutEffect(() => {
+    tyre.scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [tyre.scene, tyre.nodes, tyre.materials]);
 
   return (
     <>
-      <BodyParts nodes={nodes} materials={materials} settings={settings} />
-      <WheelParts nodes={nodes} materials={materials} settings={settings} />
+      <BodyParts
+        nodes={car.nodes}
+        materials={car.materials}
+        settings={settings}
+      />
+      <WheelParts
+        nodes={tyre.nodes}
+        materials={tyre.materials}
+        settings={settings}
+      />
     </>
   );
 };
