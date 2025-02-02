@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+
+import { useGLTF } from '@react-three/drei';
 
 import { vehicleData } from './../data/vehicleData.js';
 
@@ -8,11 +10,19 @@ import BodyStyleNotchbackParts from './BodyStyleNotchbackParts.tsx';
 import BodyStyleFastbackParts from './BodyStyleFastbackParts.tsx';
 
 const BodyParts: React.FC<{
-  nodes: any;
-  materials: any;
   settings: Settings;
-}> = ({ nodes, materials, settings }) => {
+}> = ({ settings }) => {
+  // @ts-ignore
+  const { nodes, materials, scene } = useGLTF('/volkswagen-type3.glb');
+
   const bodyRef = useRef();
+
+  useLayoutEffect(() => {
+    scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [scene, nodes, materials]);
 
   const paintColourData = vehicleData.paintColours.find(
     (colour) => colour.id === settings.paintColourId

@@ -1,10 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+
+import { useGLTF } from '@react-three/drei';
 
 const WheelParts: React.FC<{
-  nodes: any;
-  materials: any;
   settings: Settings;
-}> = ({ nodes, materials, settings }) => {
+}> = ({ settings }) => {
+  // @ts-ignore
+  const { nodes, materials, scene } = useGLTF('/tyre.glb');
+
   const wheelParts = useRef();
   const wheelFrontLeft = useRef();
   const wheelFrontRight = useRef();
@@ -37,6 +40,13 @@ const WheelParts: React.FC<{
         return [0, 0, 0];
     }
   };
+
+  useLayoutEffect(() => {
+    scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [scene, nodes, materials]);
 
   return (
     <group ref={wheelParts} dispose={null}>
