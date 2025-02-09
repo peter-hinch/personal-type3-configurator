@@ -6,8 +6,7 @@ const WheelParts: React.FC<{
   settings: Settings;
 }> = ({ settings }) => {
   // @ts-ignore
-  const tyre = useGLTF('/tyre.glb');
-  const wheel = useGLTF('/wheel-914-2-litre.glb');
+  const [tyre, wheel] = useGLTF(['/tyre.glb', '/wheel-914-2-litre.glb']);
 
   const wheelParts = useRef();
   const wheelFrontLeft = useRef();
