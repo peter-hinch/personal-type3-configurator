@@ -119,6 +119,9 @@ const StyledControls = styled.div`
   position: absolute;
   top: 0.3rem;
   left: 0.3rem;
+  padding-right: 1rem;
+  max-height: calc(100vh - 0.6rem);
+  overflow-y: auto;
   z-index: 100;
 
   div.option {

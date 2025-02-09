@@ -30,7 +30,7 @@ declare global {
 
 const defaultSettings = {
   bodyStyleId: vehicleData.bodyStyles[0].id,
-  paintColourId: vehicleData.paintColours[7].id,
+  paintColourId: vehicleData.paintColours[17].id,
   wheelId: vehicleData.wheels[0].id,
   rideHeightFront: 0,
   rideHeightRear: 0,

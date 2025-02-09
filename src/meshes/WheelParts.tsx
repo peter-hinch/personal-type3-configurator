@@ -1,58 +1,105 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+
+import { useGLTF } from '@react-three/drei';
 
 const WheelParts: React.FC<{
-  nodes: any;
-  materials: any;
   settings: Settings;
-}> = ({ nodes, materials, settings }) => {
+}> = ({ settings }) => {
+  // @ts-ignore
+  const tyre = useGLTF('/tyre.glb');
+  const wheel = useGLTF('/wheel-914-2-litre.glb');
+
   const wheelParts = useRef();
   const wheelFrontLeft = useRef();
   const wheelFrontRight = useRef();
   const wheelRearLeft = useRef();
   const wheelRearRight = useRef();
 
+  const tyreParts = useRef();
+  const tyreFrontLeft = useRef();
+  const tyreFrontRight = useRef();
+  const tyreRearLeft = useRef();
+  const tyreRearRight = useRef();
+
+  const zOffset = -0.327;
+  const wheelbase = 2400 / 1000;
+  const trackWidth = 1348 / 1000;
   const beamWidth = settings.beamWidth / 1000;
 
   const wheels = [
-    { key: 'fl', ref: wheelFrontLeft },
-    { key: 'fr', ref: wheelFrontRight },
-    { key: 'rl', ref: wheelRearLeft },
-    { key: 'rr', ref: wheelRearRight }
+    { key: 'fl', wheelRef: wheelFrontLeft, tyreRef: tyreFrontLeft },
+    { key: 'fr', wheelRef: wheelFrontRight, tyreRef: tyreFrontRight },
+    { key: 'rl', wheelRef: wheelRearLeft, tyreRef: tyreRearLeft },
+    { key: 'rr', wheelRef: wheelRearRight, tyreRef: tyreRearRight }
   ];
 
-  const calcOffset = (key: string) => {
+  const calcWheelPosition = (key: string) => {
     switch (key) {
       case 'fl':
-        return beamWidth;
+        return [trackWidth / 2 + beamWidth, zOffset, wheelbase / 2];
       case 'fr':
-        return -beamWidth;
+        return [-trackWidth / 2 - beamWidth, zOffset, wheelbase / 2];
+      case 'rl':
+        return [trackWidth / 2, zOffset, -wheelbase / 2];
+      case 'rr':
+        return [-trackWidth / 2, zOffset, -wheelbase / 2];
       default:
-        return 0;
+        return [0, 0, 0];
     }
   };
 
+  useLayoutEffect(() => {
+    wheel?.scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [wheel?.scene, wheel?.nodes, wheel?.materials]);
+
+  useLayoutEffect(() => {
+    tyre?.scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [tyre?.scene, tyre?.nodes, tyre?.materials]);
+
   return (
-    <group ref={wheelParts} dispose={null}>
-      {wheels?.map((wheel) => (
-        <group
-          key={`wheel-${wheel.key}`}
-          ref={wheel.ref}
-          dispose={null}
-          position={[calcOffset(wheel.key), 0, 0]}
-        >
-          <mesh
-            key={`rim_${wheel?.key}_${settings.wheelId}`}
-            geometry={nodes[`rim_${wheel?.key}_${settings.wheelId}`].geometry}
-            material={materials.chrome}
-          />
-          <mesh
-            key={`tyre_${wheel?.key}`}
-            geometry={nodes[`tyre_${wheel?.key}`].geometry}
-            material={materials.chassis}
-          />
-        </group>
-      ))}
-    </group>
+    <>
+      <group ref={wheelParts} dispose={null}>
+        {wheels?.map((_) => (
+          <group
+            key={`wheel-${_.key}`}
+            ref={_.wheelRef}
+            dispose={null}
+            position={calcWheelPosition(_.key)}
+            rotation={
+              _.key === 'fr' || _.key === 'rr' ? [0, Math.PI, 0] : [0, 0, 0]
+            }
+          >
+            <mesh
+              key={`tyre_${_?.key}`}
+              geometry={wheel?.nodes.wheel.geometry}
+              material={wheel?.materials.polished}
+            />
+          </group>
+        ))}
+      </group>
+      <group ref={tyreParts} dispose={null}>
+        {wheels?.map((_) => (
+          <group
+            key={`tyre-${_.key}`}
+            ref={_.tyreRef}
+            dispose={null}
+            position={calcWheelPosition(_.key)}
+          >
+            <mesh
+              key={`tyre_${_?.key}`}
+              geometry={tyre?.nodes.tyre.geometry}
+              material={tyre?.materials.rubber}
+            />
+          </group>
+        ))}
+      </group>
+    </>
   );
 };
 

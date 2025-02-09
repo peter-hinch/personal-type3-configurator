@@ -1,17 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+
+import { useGLTF } from '@react-three/drei';
 
 import { vehicleData } from './../data/vehicleData.js';
 
 import CommonParts from './CommonParts.tsx';
 import BodyStyleSquarebackParts from './BodyStyleSquarebackParts.tsx';
+import BodyStyleNotchbackParts from './BodyStyleNotchbackParts.tsx';
 import BodyStyleFastbackParts from './BodyStyleFastbackParts.tsx';
 
 const BodyParts: React.FC<{
-  nodes: any;
-  materials: any;
   settings: Settings;
-}> = ({ nodes, materials, settings }) => {
+}> = ({ settings }) => {
+  // @ts-ignore
+  const { nodes, materials, scene } = useGLTF('/volkswagen-type3.glb');
+
   const bodyRef = useRef();
+
+  useLayoutEffect(() => {
+    scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [scene, nodes, materials]);
 
   const paintColourData = vehicleData.paintColours.find(
     (colour) => colour.id === settings.paintColourId
@@ -30,7 +41,7 @@ const BodyParts: React.FC<{
     <group
       ref={bodyRef}
       dispose={null}
-      position={[0, rideHeight, 0]}
+      position={[0, 0.095 + rideHeight, -0.125]}
       rotation={[rakeAngle, 0, 0]}
     >
       <CommonParts
@@ -40,6 +51,13 @@ const BodyParts: React.FC<{
       />
       {settings.bodyStyleId === 'squareback' && (
         <BodyStyleSquarebackParts
+          nodes={nodes}
+          materials={materials}
+          paintColour={paintColourData?.hex}
+        />
+      )}
+      {settings.bodyStyleId === 'notchback' && (
+        <BodyStyleNotchbackParts
           nodes={nodes}
           materials={materials}
           paintColour={paintColourData?.hex}
