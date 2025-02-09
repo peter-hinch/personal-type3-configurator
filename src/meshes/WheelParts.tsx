@@ -23,7 +23,7 @@ const WheelParts: React.FC<{
 
   const zOffset = -0.327;
   const wheelbase = 2400 / 1000;
-  const trackWidth = 1348 / 1000;
+  const trackWidth = 1320 / 1000; // 1348 - narrower to avoid clipping
   const beamWidth = settings.beamWidth / 1000;
 
   const wheels = [
