@@ -18,17 +18,7 @@ const CommonParts: React.FC<{
         geometry={nodes.chassis_pan.geometry}
         material={materials.chassis}
       />
-      <mesh
-        geometry={nodes.door_left.geometry}
-        // position={[0.725, 0, 0.725]}
-        material={materials.paint}
-      />
-      {/* TODO: Separate door if opening is needed */}
-      {/* <mesh
-        geometry={nodes.door_right.geometry}
-        // position={[-0.725, 0, 0.725]}
-        material={materials.paint}
-      /> */}
+      <mesh geometry={nodes.door_left.geometry} material={materials.paint} />
       <mesh geometry={nodes.front_fascia.geometry} material={materials.paint} />
       <mesh geometry={nodes.front_wing.geometry} material={materials.paint} />
       <mesh
@@ -65,6 +55,11 @@ const CommonParts: React.FC<{
       <mesh geometry={nodes.bumper_rear.geometry} material={materials.chrome} />
       <mesh
         geometry={nodes.body_boot_floor.geometry}
+        material={materials.paint}
+      />
+      <mesh geometry={nodes.body_frunk.geometry} material={materials.paint} />
+      <mesh
+        geometry={nodes.body_inner_front_well.geometry}
         material={materials.paint}
       />
     </group>
