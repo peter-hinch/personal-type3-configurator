@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useEffect, useRef } from 'react';
 
 import { useGLTF } from '@react-three/drei';
+import { useSpring, animated } from '@react-spring/three';
 
 import { vehicleData } from './../data/vehicleData.js';
 
@@ -15,15 +16,6 @@ const BodyParts: React.FC<{
   // @ts-ignore
   const { nodes, materials, scene } = useGLTF('/volkswagen-type3.glb');
 
-  const bodyRef = useRef();
-
-  useLayoutEffect(() => {
-    scene.traverse(
-      (obj) =>
-        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
-    );
-  }, [scene, nodes, materials]);
-
   const paintColorData = vehicleData.paintColors.find(
     (color) => color.id === settings.paintColorId
   );
@@ -37,12 +29,33 @@ const BodyParts: React.FC<{
       wheelbase
   );
 
+  const bodyRef = useRef();
+
+  const [spring, setSpring] = useSpring(() => ({
+    height: [0, 0.095 + rideHeight, -0.125],
+    rake: [rakeAngle, 0, 0]
+  }));
+
+  useLayoutEffect(() => {
+    scene.traverse(
+      (obj) =>
+        obj.type === 'Mesh' && (obj.receiveShadow = obj.castShadow = true)
+    );
+  }, [scene, nodes, materials]);
+
+  useEffect(() => {
+    setSpring({
+      height: [0, 0.095 + rideHeight, -0.125],
+      rake: [rakeAngle, 0, 0]
+    });
+  }, [rideHeight, rakeAngle, setSpring]);
+
   return (
-    <group
+    <animated.group
       ref={bodyRef}
       dispose={null}
-      position={[0, 0.095 + rideHeight, -0.125]}
-      rotation={[rakeAngle, 0, 0]}
+      position={spring.height.to((x, y, z) => [x, y, z])}
+      rotation={spring.rake.to((x, y, z) => [x, y, z])}
     >
       <CommonParts
         nodes={nodes}
@@ -70,7 +83,7 @@ const BodyParts: React.FC<{
           paintColor={paintColorData?.hex}
         />
       )}
-    </group>
+    </animated.group>
   );
 };
 
