@@ -4,8 +4,8 @@ export const vehicleData = {
     { id: 'notchback', name: 'Notchback' },
     { id: 'fastback', name: 'Fastback' }
   ],
-  paintColours: [
-    // Colours reference:
+  paintColors: [
+    // Colors reference:
     // https://www.thesamba.com/vw/archives/info/paintcodest3.php
     {
       id: 'black',
