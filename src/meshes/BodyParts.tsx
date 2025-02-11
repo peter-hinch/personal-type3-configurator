@@ -24,8 +24,8 @@ const BodyParts: React.FC<{
     );
   }, [scene, nodes, materials]);
 
-  const paintColourData = vehicleData.paintColours.find(
-    (colour) => colour.id === settings.paintColourId
+  const paintColorData = vehicleData.paintColors.find(
+    (color) => color.id === settings.paintColorId
   );
 
   // TODO: Offset rotation origin
@@ -47,27 +47,27 @@ const BodyParts: React.FC<{
       <CommonParts
         nodes={nodes}
         materials={materials}
-        paintColour={paintColourData?.hex}
+        paintColor={paintColorData?.hex}
       />
       {settings.bodyStyleId === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
-          paintColour={paintColourData?.hex}
+          paintColor={paintColorData?.hex}
         />
       )}
       {settings.bodyStyleId === 'notchback' && (
         <BodyStyleNotchbackParts
           nodes={nodes}
           materials={materials}
-          paintColour={paintColourData?.hex}
+          paintColor={paintColorData?.hex}
         />
       )}
       {settings.bodyStyleId === 'fastback' && (
         <BodyStyleFastbackParts
           nodes={nodes}
           materials={materials}
-          paintColour={paintColourData?.hex}
+          paintColor={paintColorData?.hex}
         />
       )}
     </group>

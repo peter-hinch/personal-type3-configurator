@@ -30,22 +30,22 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           </div>
         ))}
       </SettingGroup>
-      <SettingGroup title="Paint colour">
-        {vehicleData?.paintColours.map((paintColour) => (
-          <div className="option" key={`paint-colour--${paintColour.id}`}>
+      <SettingGroup title="Paint color">
+        {vehicleData?.paintColors.map((paintColor) => (
+          <div className="option" key={`paint-color--${paintColor.id}`}>
             <input
               type="radio"
-              name="paint-colour"
-              id={paintColour.id}
-              checked={settings.paintColourId === paintColour.id}
-              onChange={(e) => handleSettings('paintColourId', e.target.id)}
+              name="paint-color"
+              id={paintColor.id}
+              checked={settings.paintColorId === paintColor.id}
+              onChange={(e) => handleSettings('paintColorId', e.target.id)}
             />
-            <label htmlFor={paintColour.id}>
-              {paintColour.name}
+            <label htmlFor={paintColor.id}>
+              {paintColor.name}
               <Tooltip
-                text={`${paintColour.paintCode}: ${paintColour.yearMin}-${paintColour.yearMax}`}
+                text={`${paintColor.paintCode}: ${paintColor.yearMin}-${paintColor.yearMax}`}
               >
-                <StyledColourSwatch colour={paintColour.hex} />
+                <StyledColorSwatch color={paintColor.hex} />
               </Tooltip>
             </label>
           </div>
@@ -145,11 +145,11 @@ const StyledControls = styled.div`
   }
 `;
 
-const StyledColourSwatch = styled.span`
+const StyledColorSwatch = styled.span`
   display: inline-block;
   height: 18px;
   width: 18px;
-  background: ${(props) => props?.colour};
+  background: ${(props) => props?.color};
   content: '';
 `;
 

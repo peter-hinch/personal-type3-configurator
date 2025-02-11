@@ -3,8 +3,8 @@ import React, { useRef } from 'react';
 const BodyStyleFastbackParts: React.FC<{
   nodes;
   materials;
-  paintColour;
-}> = ({ nodes, materials, paintColour }) => {
+  paintColor;
+}> = ({ nodes, materials, paintColor }) => {
   const bodyStyleFastbackParts = useRef();
 
   return (
