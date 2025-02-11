@@ -14,7 +14,7 @@ const CommonParts: React.FC<{
 
   useEffect(() => {
     setSpring({ color: paintColor });
-  }, [materials, paintColor]);
+  }, [materials, paintColor, setSpring]);
 
   return (
     <group ref={commonParts} dispose={null}>
