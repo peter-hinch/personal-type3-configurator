@@ -11,6 +11,7 @@ import {
   Stage,
   MeshReflectorMaterial
 } from '@react-three/drei';
+import { Globals } from '@react-spring/three';
 
 import { vehicleData } from './data/vehicleData.js';
 
@@ -20,7 +21,7 @@ import Controls from './ui/Controls.tsx';
 declare global {
   type Settings = {
     bodyStyleId: string;
-    paintColourId: string;
+    paintColorId: string;
     wheelId: string;
     rideHeightFront: number;
     rideHeightRear: number;
@@ -30,12 +31,14 @@ declare global {
 
 const defaultSettings = {
   bodyStyleId: vehicleData.bodyStyles[0].id,
-  paintColourId: vehicleData.paintColours[17].id,
+  paintColorId: vehicleData.paintColors[17].id,
   wheelId: vehicleData.wheels[0].id,
   rideHeightFront: 0,
   rideHeightRear: 0,
   beamWidth: 0
 };
+
+Globals.assign({ frameLoop: 'always' });
 
 const App: React.FC = () => {
   const [parameters, setParameters] = useSearchParams();
@@ -48,7 +51,7 @@ const App: React.FC = () => {
     key: keyof Settings,
     value:
       | Settings['bodyStyleId']
-      | Settings['paintColourId']
+      | Settings['paintColorId']
       | Settings['wheelId']
       | Settings['rideHeightFront']
       | Settings['rideHeightRear']

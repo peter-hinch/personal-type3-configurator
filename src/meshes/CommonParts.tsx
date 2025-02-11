@@ -1,26 +1,68 @@
 import React, { useEffect, useRef } from 'react';
 
+import { useSpring, animated } from '@react-spring/three';
+
 const CommonParts: React.FC<{
   nodes;
   materials;
-  paintColour;
-}> = ({ nodes, materials, paintColour }) => {
-  useEffect(() => {
-    materials.paint.color.set(paintColour);
-  }, [materials, paintColour]);
-
+  paintColor;
+}> = ({ nodes, materials, paintColor }) => {
   const commonParts = useRef();
+  const [spring, setSpring] = useSpring(() => ({
+    color: paintColor
+  }));
+
+  useEffect(() => {
+    setSpring({ color: paintColor });
+  }, [materials, paintColor]);
 
   return (
     <group ref={commonParts} dispose={null}>
-      <mesh geometry={nodes.bonnet.geometry} material={materials.paint} />
+      <animated.mesh
+        geometry={nodes.bonnet.geometry}
+        material={materials.paint}
+        material-color={spring.color}
+      />
+      <animated.mesh
+        geometry={nodes.door_left.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.front_fascia.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.front_wing.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.rear_fascia.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.rear_wing.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.body_frunk.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.body_inner_front_well.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.body_boot_floor.geometry}
+        material={materials.paint}
+      />
+      <animated.mesh
+        geometry={nodes.heater_channel.geometry}
+        material={materials.paint}
+      />
       <mesh
         geometry={nodes.chassis_pan.geometry}
         material={materials.chassis}
       />
-      <mesh geometry={nodes.door_left.geometry} material={materials.paint} />
-      <mesh geometry={nodes.front_fascia.geometry} material={materials.paint} />
-      <mesh geometry={nodes.front_wing.geometry} material={materials.paint} />
       <mesh
         geometry={nodes.headlight_lens.geometry}
         material={materials.glass}
@@ -29,12 +71,6 @@ const CommonParts: React.FC<{
         geometry={nodes.headlight_ring.geometry}
         material={materials.chrome}
       />
-      <mesh
-        geometry={nodes.heater_channel.geometry}
-        material={materials.paint}
-      />
-      <mesh geometry={nodes.rear_fascia.geometry} material={materials.paint} />
-      <mesh geometry={nodes.rear_wing.geometry} material={materials.paint} />
       <mesh
         geometry={nodes.taillight_lens.geometry}
         material={materials.light_lens_red}
@@ -53,15 +89,6 @@ const CommonParts: React.FC<{
         material={materials.chrome}
       />
       <mesh geometry={nodes.bumper_rear.geometry} material={materials.chrome} />
-      <mesh
-        geometry={nodes.body_boot_floor.geometry}
-        material={materials.paint}
-      />
-      <mesh geometry={nodes.body_frunk.geometry} material={materials.paint} />
-      <mesh
-        geometry={nodes.body_inner_front_well.geometry}
-        material={materials.paint}
-      />
     </group>
   );
 };
