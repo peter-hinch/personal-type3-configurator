@@ -9,10 +9,10 @@ const BodyStyleNotchbackParts: React.FC<{
 
   return (
     <group ref={bodyStyleNotchbackParts} dispose={null}>
-      {/* <mesh
-        geometry={nodes.rear_window_panels_notchback.geometry}
+      <mesh
+        geometry={nodes.rear_window_panels_notch.geometry}
         material={materials.paint}
-      /> */}
+      />
       <mesh
         geometry={nodes.roof_skin_notch.geometry}
         material={materials.paint}
