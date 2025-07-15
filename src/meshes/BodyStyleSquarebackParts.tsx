@@ -22,6 +22,7 @@ const BodyStyleSquarebackParts: React.FC<{
         geometry={nodes.rear_windscreen_square.geometry}
         material={materials.glass}
       />
+      <mesh geometry={nodes.rear_wing.geometry} material={materials.paint} />
     </group>
   );
 };

@@ -40,10 +40,6 @@ const CommonParts: React.FC<{
         material={materials.paint}
       />
       <animated.mesh
-        geometry={nodes.rear_wing.geometry}
-        material={materials.paint}
-      />
-      <animated.mesh
         geometry={nodes.body_frunk.geometry}
         material={materials.paint}
       />

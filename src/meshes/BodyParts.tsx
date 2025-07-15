@@ -15,6 +15,7 @@ const BodyParts: React.FC<{
 }> = ({ settings }) => {
   // @ts-ignore
   const { nodes, materials, scene } = useGLTF('/volkswagen-type3.glb');
+  // console.log('nodes', nodes);
 
   const paintColorData = vehicleData.paintColors.find(
     (color) => color.id === settings.paintColorId

@@ -21,6 +21,7 @@ const BodyStyleFastbackParts: React.FC<{
         geometry={nodes.rear_windscreen_fastback.geometry}
         material={materials.glass}
       />
+      <mesh geometry={nodes.rear_wing.geometry} material={materials.paint} />
     </group>
   );
 };
