@@ -10,6 +10,10 @@ const BodyStyleFastbackParts: React.FC<{
   return (
     <group ref={bodyStyleFastbackParts} dispose={null}>
       <mesh
+        geometry={nodes.boot_fastback.geometry}
+        material={materials.paint}
+      />
+      <mesh
         geometry={nodes.rear_window_panels_fastback.geometry}
         material={materials.paint}
       />
