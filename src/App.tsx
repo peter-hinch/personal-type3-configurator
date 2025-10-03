@@ -12,7 +12,7 @@ import {
   MeshReflectorMaterial
 } from '@react-three/drei';
 import { Globals } from '@react-spring/three';
-import useMeasure from 'react-use-measure';
+// import useMeasure from 'react-use-measure';
 import styled from 'styled-components';
 
 import { vehicleData } from './data/vehicleData.js';
@@ -51,7 +51,7 @@ const App: React.FC = () => {
       defaultSettings
   );
 
-  const [viewportRef, viewPortBounds] = useMeasure({ debounce: 1000 });
+  // const [viewportRef, viewPortBounds] = useMeasure({ debounce: 1000 });
   // console.log('viewportBounds', viewPortBounds);
 
   const overlayRef = useRef(null);
