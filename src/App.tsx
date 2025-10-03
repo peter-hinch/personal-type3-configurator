@@ -77,7 +77,9 @@ const App: React.FC = () => {
   }, [settings, setParameters]);
 
   return (
-    <StyledViewport ref={viewportRef}>
+    <StyledViewport
+    // ref={viewportRef}
+    >
       <Menu
         overlayRef={overlayRef}
         settings={settings}
