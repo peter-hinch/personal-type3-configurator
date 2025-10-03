@@ -5,8 +5,9 @@ import { vehicleData } from '../data/vehicleData.js';
 
 import MenuGroup from './MenuGroup.tsx';
 import UnitInput from './UnitInput.tsx';
-import Tooltip from './Tooltip.tsx';
 import ClampableInputs from './ClampableInputs.tsx';
+import ColorPicker from './ColorPicker.tsx';
+import Tooltip from './Tooltip.tsx';
 
 const Menu: React.FC<{
   overlayRef: any;
@@ -32,26 +33,50 @@ const Menu: React.FC<{
         ))}
       </MenuGroup>
       <MenuGroup title="Paint color">
-        {vehicleData?.paintColors.map((paintColor) => (
-          <div className="option" key={`paint-color--${paintColor.id}`}>
-            <input
-              type="radio"
-              name="paint-color"
-              id={paintColor.id}
-              checked={settings.paintColorId === paintColor.id}
-              onChange={(e) => handleSettings('paintColorId', e.target.id)}
-            />
-            <label htmlFor={paintColor.id}>
-              {paintColor.name}
-              <Tooltip
-                overlayRef={overlayRef}
-                text={`${paintColor.paintCode}: ${paintColor.yearMin}-${paintColor.yearMax}`}
-              >
-                <StyledColorSwatch color={paintColor.hex} />
-              </Tooltip>
-            </label>
-          </div>
-        ))}
+        <ul>
+          {vehicleData?.paintColors.map((paintColor) => {
+            const isChecked = settings.paintColorId === paintColor.id;
+            const isCustom = paintColor.id === 'custom';
+
+            return (
+              <li className="option" key={`paint-color--${paintColor.id}`}>
+                <input
+                  type="radio"
+                  name="paint-color"
+                  id={paintColor.id}
+                  checked={isChecked}
+                  onChange={(e) => handleSettings('paintColorId', e.target.id)}
+                />
+                <label htmlFor={paintColor.id}>
+                  {paintColor.name}
+                  <Tooltip
+                    overlayRef={overlayRef}
+                    text={`${
+                      !isCustom
+                        ? `${paintColor.paintCode}: ${paintColor.yearMin}-${paintColor.yearMax}`
+                        : settings.paintColorCustom
+                    }`}
+                  >
+                    {!isCustom ? (
+                      <StyledColorSwatch
+                        color={
+                          isCustom
+                            ? settings.paintColorCustom
+                            : paintColor.colorValue
+                        }
+                      />
+                    ) : (
+                      <ColorPicker
+                        settings={settings}
+                        handleSettings={handleSettings}
+                      />
+                    )}
+                  </Tooltip>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
       </MenuGroup>
       <MenuGroup title="Wheels">
         {vehicleData?.wheels.map((wheel) => (
@@ -126,23 +151,29 @@ const StyledMenu = styled.div`
   overflow-y: auto;
   z-index: 1;
 
-  div.option {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 
-    input[type='radio'] {
-      margin: 0.125rem 0;
-    }
-
-    label {
+    li.option {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      width: 100%;
+      gap: 0.5rem;
+
+      input[type='radio'] {
+        margin: 0.125rem 0;
+      }
+
+      label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        width: 100%;
+      }
     }
   }
 `;

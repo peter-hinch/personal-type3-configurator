@@ -17,9 +17,9 @@ const BodyParts: React.FC<{
   const { nodes, materials, scene } = useGLTF('/volkswagen-type3.glb');
   // console.log('nodes', nodes);
 
-  const paintColorData = vehicleData.paintColors.find(
-    (color) => color.id === settings.paintColorId
-  );
+  const paintColor =
+    vehicleData.paintColors.find((color) => color.id === settings.paintColorId)
+      ?.colorValue || settings.paintColorCustom;
 
   // TODO: Offset rotation origin
   const wheelbase = 2400;
@@ -61,27 +61,27 @@ const BodyParts: React.FC<{
       <CommonParts
         nodes={nodes}
         materials={materials}
-        paintColor={paintColorData?.hex}
+        paintColor={paintColor}
       />
       {settings.bodyStyleId === 'squareback' && (
         <BodyStyleSquarebackParts
           nodes={nodes}
           materials={materials}
-          paintColor={paintColorData?.hex}
+          paintColor={paintColor}
         />
       )}
       {settings.bodyStyleId === 'notchback' && (
         <BodyStyleNotchbackParts
           nodes={nodes}
           materials={materials}
-          paintColor={paintColorData?.hex}
+          paintColor={paintColor}
         />
       )}
       {settings.bodyStyleId === 'fastback' && (
         <BodyStyleFastbackParts
           nodes={nodes}
           materials={materials}
-          paintColor={paintColorData?.hex}
+          paintColor={paintColor}
         />
       )}
     </animated.group>

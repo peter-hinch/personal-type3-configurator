@@ -19,8 +19,6 @@ const Tooltip: React.FC<{
     y: 0
   });
 
-  console.log('overlayOffset', overlayOffset);
-
   return (
     <div
       onMouseEnter={() => setIsOpen(true)}

@@ -24,6 +24,7 @@ declare global {
   type Settings = {
     bodyStyleId: string;
     paintColorId: string;
+    paintColorCustom: string;
     wheelId: string;
     rideHeightFront: number;
     rideHeightRear: number;
@@ -34,6 +35,7 @@ declare global {
 const defaultSettings = {
   bodyStyleId: vehicleData.bodyStyles[0].id,
   paintColorId: vehicleData.paintColors[17].id,
+  paintColorCustom: 'gray',
   wheelId: vehicleData.wheels[0].id,
   rideHeightFront: 0,
   rideHeightRear: 0,
@@ -50,7 +52,7 @@ const App: React.FC = () => {
   );
 
   const [viewportRef, viewPortBounds] = useMeasure({ debounce: 1000 });
-  console.log('viewportBounds', viewPortBounds);
+  // console.log('viewportBounds', viewPortBounds);
 
   const overlayRef = useRef(null);
 
@@ -59,6 +61,7 @@ const App: React.FC = () => {
     value:
       | Settings['bodyStyleId']
       | Settings['paintColorId']
+      | Settings['paintColorCustom']
       | Settings['wheelId']
       | Settings['rideHeightFront']
       | Settings['rideHeightRear']
