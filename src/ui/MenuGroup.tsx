@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 Globals.assign({ frameLoop: 'always' });
 
-const SettingGroup: React.FC<{
+const MenuGroup: React.FC<{
   title: string;
   children: any;
 }> = ({ title, children }) => {
@@ -30,8 +30,8 @@ const SettingGroup: React.FC<{
         <span>{title}</span>
         <span>{!isExpanded ? '+' : '-'}</span>
       </h4>
-      <animated.div className="group-content" style={heightAnimationProps}>
-        <div ref={contentRef}>
+      <animated.div className="group-container" style={heightAnimationProps}>
+        <div className="group-container__content" ref={contentRef}>
           <animated.div style={contentAnimationProps}>{children}</animated.div>
         </div>
       </animated.div>
@@ -44,7 +44,7 @@ const StyledSettingGroup = styled.fieldset`
   flex-direction: column;
   padding: 0.5rem 1rem;
   margin: 0 0 0.5rem;
-  width: 190px;
+  width: 220px;
   background: white;
   border: none;
   border-radius: 0.5rem;
@@ -58,8 +58,14 @@ const StyledSettingGroup = styled.fieldset`
     cursor: pointer;
   }
 
-  .group-content {
+  .group-container {
     overflow-y: hidden;
+
+    .group-container__ {
+      &content {
+        padding-bottom: 4px;
+      }
+    }
   }
 
   .option {
@@ -71,4 +77,4 @@ const StyledSettingGroup = styled.fieldset`
   }
 `;
 
-export default SettingGroup;
+export default MenuGroup;

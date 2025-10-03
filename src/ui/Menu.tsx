@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { vehicleData } from '../data/vehicleData';
+import { vehicleData } from '../data/vehicleData.js';
 
-import SettingGroup from './SettingGroup.tsx';
+import MenuGroup from './MenuGroup.tsx';
 import UnitInput from './UnitInput.tsx';
 import Tooltip from './Tooltip.tsx';
 import ClampableInputs from './ClampableInputs.tsx';
 
-const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
-  settings,
-  handleSettings
-}) => {
+const Menu: React.FC<{
+  overlayRef: any;
+  settings: Settings;
+  handleSettings: Function;
+}> = ({ overlayRef, settings, handleSettings }) => {
   const [uom, setUom] = useState<string>('mm');
 
   return (
-    <StyledControls>
-      <SettingGroup title="Body style">
+    <StyledMenu>
+      <MenuGroup title="Body style">
         {vehicleData?.bodyStyles.map((bodyStyle) => (
           <div className="option" key={`body-style--${bodyStyle.id}`}>
             <input
@@ -29,8 +30,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             <label htmlFor={bodyStyle.id}>{bodyStyle.name}</label>
           </div>
         ))}
-      </SettingGroup>
-      <SettingGroup title="Paint color">
+      </MenuGroup>
+      <MenuGroup title="Paint color">
         {vehicleData?.paintColors.map((paintColor) => (
           <div className="option" key={`paint-color--${paintColor.id}`}>
             <input
@@ -43,6 +44,7 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             <label htmlFor={paintColor.id}>
               {paintColor.name}
               <Tooltip
+                overlayRef={overlayRef}
                 text={`${paintColor.paintCode}: ${paintColor.yearMin}-${paintColor.yearMax}`}
               >
                 <StyledColorSwatch color={paintColor.hex} />
@@ -50,8 +52,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             </label>
           </div>
         ))}
-      </SettingGroup>
-      <SettingGroup title="Wheels">
+      </MenuGroup>
+      <MenuGroup title="Wheels">
         {vehicleData?.wheels.map((wheel) => (
           <div className="option" key={`wheel--${wheel}`}>
             <input
@@ -64,8 +66,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
             <label htmlFor={wheel.id}>{wheel.name}</label>
           </div>
         ))}
-      </SettingGroup>
-      <SettingGroup title="Suspension">
+      </MenuGroup>
+      <MenuGroup title="Suspension">
         <ClampableInputs
           inputs={[
             { label: 'Front ride height', id: 'rideHeightFront' },
@@ -88,8 +90,8 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           value={settings.beamWidth}
           handleChange={handleSettings}
         />
-      </SettingGroup>
-      <SettingGroup title="Units">
+      </MenuGroup>
+      <MenuGroup title="Units">
         <div className="option">
           <input
             type="radio"
@@ -110,19 +112,19 @@ const Controls: React.FC<{ settings: Settings; handleSettings: Function }> = ({
           />
           <label htmlFor="mm">Millimetres</label>
         </div>
-      </SettingGroup>
-    </StyledControls>
+      </MenuGroup>
+    </StyledMenu>
   );
 };
 
-const StyledControls = styled.div`
+const StyledMenu = styled.div`
   position: absolute;
   top: 0.3rem;
   left: 0.3rem;
   padding-right: 1rem;
   max-height: calc(100vh - 0.6rem);
   overflow-y: auto;
-  z-index: 100;
+  z-index: 1;
 
   div.option {
     display: flex;
@@ -153,4 +155,4 @@ const StyledColorSwatch = styled.span`
   content: '';
 `;
 
-export default Controls;
+export default Menu;

@@ -3,7 +3,7 @@
 // Reference: https://codesandbox.io/s/q48jgy
 // Reference: https://codesandbox.io/s/9b56t
 
-import React, { useState, Suspense, useEffect } from 'react';
+import React, { useState, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import {
@@ -12,11 +12,13 @@ import {
   MeshReflectorMaterial
 } from '@react-three/drei';
 import { Globals } from '@react-spring/three';
+import useMeasure from 'react-use-measure';
+import styled from 'styled-components';
 
 import { vehicleData } from './data/vehicleData.js';
 
 import Car from './Car.tsx';
-import Controls from './ui/Controls.tsx';
+import Menu from './ui/Menu.tsx';
 
 declare global {
   type Settings = {
@@ -47,6 +49,11 @@ const App: React.FC = () => {
       defaultSettings
   );
 
+  const [viewportRef, viewPortBounds] = useMeasure({ debounce: 1000 });
+  console.log('viewportBounds', viewPortBounds);
+
+  const overlayRef = useRef(null);
+
   const handleSettings = (
     key: keyof Settings,
     value:
@@ -67,8 +74,12 @@ const App: React.FC = () => {
   }, [settings, setParameters]);
 
   return (
-    <>
-      <Controls settings={settings} handleSettings={handleSettings} />
+    <StyledViewport ref={viewportRef}>
+      <Menu
+        overlayRef={overlayRef}
+        settings={settings}
+        handleSettings={handleSettings}
+      />
       <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }}>
         <color attach="background" args={['#101010']} />
         <fog attach="fog" args={['#101010', 10, 20]} />
@@ -106,8 +117,23 @@ const App: React.FC = () => {
           </PresentationControls>
         </Suspense>
       </Canvas>
-    </>
+      <div ref={overlayRef} className="viewport-overlay"></div>
+    </StyledViewport>
   );
 };
+
+const StyledViewport = styled.div`
+  height: 100vh;
+
+  .viewport-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+`;
 
 export default App;
