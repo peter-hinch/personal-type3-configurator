@@ -26,6 +26,8 @@ declare global {
     paintColorId: string;
     paintColorCustom: string;
     wheelId: string;
+    bumperFrontId: string;
+    bumperRearId: string;
     rideHeightFront: number;
     rideHeightRear: number;
     beamWidth: number;
@@ -37,6 +39,8 @@ const defaultSettings = {
   paintColorId: vehicleData.paintColors[17].id,
   paintColorCustom: 'gray',
   wheelId: vehicleData.wheels[0].id,
+  bumperFrontId: vehicleData.bumpers[0].id,
+  bumperRearId: vehicleData.bumpers[0].id,
   rideHeightFront: 0,
   rideHeightRear: 0,
   beamWidth: 0

@@ -196,5 +196,9 @@ export const vehicleData = {
       name: 'Custom...'
     }
   ],
-  wheels: [{ id: '2litre', name: '2 Litre Alloy' }]
+  wheels: [{ id: '2litre', name: '2 Litre Alloy' }],
+  bumpers: [
+    { id: 'early', name: 'Early' },
+    { id: 'none', name: 'None' }
+  ]
 };

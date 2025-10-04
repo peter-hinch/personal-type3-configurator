@@ -59,6 +59,7 @@ const BodyParts: React.FC<{
       rotation={spring.rake.to((x, y, z) => [x, y, z])}
     >
       <CommonParts
+        settings={settings}
         nodes={nodes}
         materials={materials}
         paintColor={paintColor}

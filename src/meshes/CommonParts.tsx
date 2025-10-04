@@ -3,10 +3,11 @@ import React, { useEffect, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/three';
 
 const CommonParts: React.FC<{
+  settings: Settings;
   nodes;
   materials;
   paintColor;
-}> = ({ nodes, materials, paintColor }) => {
+}> = ({ settings, nodes, materials, paintColor }) => {
   const commonParts = useRef();
   const [spring, setSpring] = useSpring(() => ({
     color: paintColor
@@ -80,11 +81,18 @@ const CommonParts: React.FC<{
         geometry={nodes.vent_wing_windows.geometry}
         material={materials.glass}
       />
-      <mesh
-        geometry={nodes.bumper_front.geometry}
-        material={materials.chrome}
-      />
-      <mesh geometry={nodes.bumper_rear.geometry} material={materials.chrome} />
+      {settings.bumperFrontId === 'early' && (
+        <mesh
+          geometry={nodes.bumper_front.geometry}
+          material={materials.chrome}
+        />
+      )}
+      {settings.bumperRearId === 'early' && (
+        <mesh
+          geometry={nodes.bumper_rear.geometry}
+          material={materials.chrome}
+        />
+      )}
     </group>
   );
 };

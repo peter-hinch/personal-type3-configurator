@@ -92,6 +92,34 @@ const Menu: React.FC<{
           </div>
         ))}
       </MenuGroup>
+      <MenuGroup title="Bumpers">
+        Front bumper
+        {vehicleData?.bumpers.map((bumper) => (
+          <div className="option" key={`bumper-front--${bumper}`}>
+            <input
+              type="radio"
+              name="bumper-front"
+              id={bumper.id}
+              checked={settings.bumperFrontId === bumper.id}
+              onChange={(e) => handleSettings('bumperFrontId', e.target.id)}
+            />
+            <label htmlFor={bumper.id}>{bumper.name}</label>
+          </div>
+        ))}
+        Rear bumper
+        {vehicleData?.bumpers.map((bumper) => (
+          <div className="option" key={`bumper-rear--${bumper}`}>
+            <input
+              type="radio"
+              name="bumper-rear"
+              id={bumper.id}
+              checked={settings.bumperRearId === bumper.id}
+              onChange={(e) => handleSettings('bumperRearId', e.target.id)}
+            />
+            <label htmlFor={bumper.id}>{bumper.name}</label>
+          </div>
+        ))}
+      </MenuGroup>
       <MenuGroup title="Suspension">
         <ClampableInputs
           inputs={[
