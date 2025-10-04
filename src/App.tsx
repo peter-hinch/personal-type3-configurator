@@ -76,9 +76,11 @@ const App: React.FC = () => {
     });
   };
 
-  useEffect(() => {
+  const handleShareUrl = async () => {
     setParameters({ settings: encodeURIComponent(JSON.stringify(settings)) });
-  }, [settings, setParameters]);
+    // TODO: May need to ensure permissions are present before copying
+    await navigator.clipboard.writeText(window.location.href);
+  };
 
   return (
     <StyledViewport
@@ -88,6 +90,7 @@ const App: React.FC = () => {
         overlayRef={overlayRef}
         settings={settings}
         handleSettings={handleSettings}
+        handleShareUrl={handleShareUrl}
       />
       <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }}>
         <color attach="background" args={['#101010']} />

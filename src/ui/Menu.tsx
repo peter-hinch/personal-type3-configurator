@@ -13,7 +13,8 @@ const Menu: React.FC<{
   overlayRef: any;
   settings: Settings;
   handleSettings: Function;
-}> = ({ overlayRef, settings, handleSettings }) => {
+  handleShareUrl: Function;
+}> = ({ overlayRef, settings, handleSettings, handleShareUrl }) => {
   const [uom, setUom] = useState<string>('mm');
 
   return (
@@ -80,7 +81,7 @@ const Menu: React.FC<{
       </MenuGroup>
       <MenuGroup title="Wheels">
         {vehicleData?.wheels.map((wheel) => (
-          <div className="option" key={`wheel--${wheel}`}>
+          <div className="option" key={`wheel--${wheel.id}`}>
             <input
               type="radio"
               name="wheel"
@@ -95,7 +96,7 @@ const Menu: React.FC<{
       <MenuGroup title="Bumpers">
         Front bumper
         {vehicleData?.bumpers.map((bumper) => (
-          <div className="option" key={`bumper-front--${bumper}`}>
+          <div className="option" key={`bumper-front--${bumper.id}`}>
             <input
               type="radio"
               name="bumper-front"
@@ -108,7 +109,7 @@ const Menu: React.FC<{
         ))}
         Rear bumper
         {vehicleData?.bumpers.map((bumper) => (
-          <div className="option" key={`bumper-rear--${bumper}`}>
+          <div className="option" key={`bumper-rear--${bumper.id}`}>
             <input
               type="radio"
               name="bumper-rear"
@@ -166,6 +167,13 @@ const Menu: React.FC<{
           <label htmlFor="mm">Millimetres</label>
         </div>
       </MenuGroup>
+      <button
+        onClick={() => {
+          handleShareUrl();
+        }}
+      >
+        Share
+      </button>
     </StyledMenu>
   );
 };
