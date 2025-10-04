@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { vehicleData } from '../data/vehicleData.js';
+import shareIcon from '../../src/share-2-svgrepo-com.svg';
 
 import MenuGroup from './MenuGroup.tsx';
 import UnitInput from './UnitInput.tsx';
@@ -171,8 +172,9 @@ const Menu: React.FC<{
         onClick={() => {
           handleShareUrl();
         }}
+        title="Copy link to clipboard"
       >
-        Share
+        <img src={shareIcon} />
       </button>
     </StyledMenu>
   );
@@ -210,6 +212,22 @@ const StyledMenu = styled.div`
         gap: 6px;
         width: 100%;
       }
+    }
+  }
+
+  button {
+    display: flex;
+    padding: 0.5rem;
+    margin: 0 0 0.5rem;
+    background: white;
+    border: none;
+    border-radius: 0.5rem;
+    user-select: none;
+    cursor: pointer;
+
+    img {
+      max-width: 24px;
+      max-height: 24px;
     }
   }
 `;
