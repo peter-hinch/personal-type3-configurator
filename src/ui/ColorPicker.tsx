@@ -26,6 +26,7 @@ const StyledColorPicker = styled.div`
     height: 18px;
     padding: 0;
     border: none;
+    cursor: pointer;
   }
 `;
 
