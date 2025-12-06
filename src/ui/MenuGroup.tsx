@@ -5,6 +5,8 @@ import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
 import styled from 'styled-components';
 
+import plusIcon from '../plus-svgrepo-com.svg';
+
 Globals.assign({ frameLoop: 'always' });
 
 const MenuGroup: React.FC<{
@@ -28,7 +30,14 @@ const MenuGroup: React.FC<{
         }}
       >
         <span>{title}</span>
-        <span>{!isExpanded ? '+' : '-'}</span>
+        <button>
+          <img
+            src={plusIcon}
+            className={`menu-group menu-group__${
+              isExpanded ? 'open' : 'closed'
+            }`}
+          />
+        </button>
       </h4>
       <animated.div className="group-container" style={heightAnimationProps}>
         <div className="group-container__content" ref={contentRef}>
@@ -56,6 +65,25 @@ const StyledSettingGroup = styled.fieldset`
     justify-content: space-between;
     margin: 0.25rem 0;
     cursor: pointer;
+
+    button {
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      border: none;
+
+      img.menu-group {
+        position: relative;
+        top: 3px;
+        max-width: 16px;
+        max-height: 16px;
+        transition: 0.25s all ease-in;
+
+        &__open {
+          rotate: 45deg;
+        }
+      }
+    }
   }
 
   .group-container {
