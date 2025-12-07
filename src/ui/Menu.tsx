@@ -174,7 +174,7 @@ const Menu: React.FC<{
         }}
         title="Copy link to clipboard"
       >
-        <img src={shareIcon} />
+        <img src={shareIcon} alt="share icon" />
       </button>
     </StyledMenu>
   );

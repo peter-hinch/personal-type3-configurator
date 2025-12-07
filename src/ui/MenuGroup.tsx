@@ -30,12 +30,13 @@ const MenuGroup: React.FC<{
         }}
       >
         <span>{title}</span>
-        <button>
+        <button title={`${!isExpanded ? 'open' : 'close'} ${title} group`}>
           <img
             src={plusIcon}
             className={`menu-group menu-group__${
               isExpanded ? 'open' : 'closed'
             }`}
+            alt={`${isExpanded ? 'close' : 'open'} icon`}
           />
         </button>
       </h4>
