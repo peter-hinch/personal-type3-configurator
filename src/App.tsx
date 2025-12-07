@@ -3,7 +3,7 @@
 // Reference: https://codesandbox.io/s/q48jgy
 // Reference: https://codesandbox.io/s/9b56t
 
-import React, { useState, Suspense, useEffect, useRef } from 'react';
+import React, { useState, Suspense, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import {
